@@ -1,0 +1,153 @@
+body {
+    padding-bottom: 20px;
+    background: #f0f2f5;
+}
+
+body a {
+    color: #000051;
+}
+
+body a:hover {
+    color: #1a237e;
+}
+
+.table-dark a:hover,
+.table-dark a {
+    color: #28a745;
+}
+
+.bg-nav {
+    z-index: 999;
+    background-color: #fff;
+}
+
+.nav-dropdown-divider {
+    border-top: 1px solid #28a745;
+}
+
+.bg-filters {
+    background-color: #fff;
+}
+
+.bg-app {
+    background-color: #000051;
+}
+
+.badge-app {
+    color: #fff;
+    background-color: #1a237e;
+}
+
+.btn-head,
+.bg-head {
+    color: #fff;
+    border-color: #1a237e;
+    background-color: #1a237e;
+}
+
+.btn-head:hover {
+    color: #fff;
+    border-color: #000051;
+    background-color: #000051;
+}
+
+.jumbotron {
+    background-color: #fff;
+}
+
+.list-group {
+    height: 200px !important;
+    margin-bottom: 10px;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.row>[class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Since positioning the image, we need to help out the caption */
+
+.carousel-caption {
+    bottom: 3rem;
+    z-index: 10;
+}
+
+.carousel-item {
+    height: 12rem;
+}
+
+.carousel-item>img {
+    min-width: 100%;
+    height: 12rem;
+}
+
+.user-img {
+    position: relative;
+    width: 100%;
+}
+
+.user-img:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.user-img img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+@media (min-width:768px) {
+    .carousel-item {
+        height: 17rem;
+    }
+    .carousel-item>img {
+        height: 17rem;
+    }
+}
+
+@media (min-width:992px) {
+    .carousel-item {
+        height: 27rem;
+    }
+    .carousel-item>img {
+        height: 27rem;
+    }
+}
+
+@media (min-width:1200px) {
+    .rating-number {
+        text-align: center;
+    }
+}
+
+.avaliacao img {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+}
+
+.rating-number {
+    text-align: center;
+}
+
+.very-small {
+    font-size: 0.6em;
+}

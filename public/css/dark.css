@@ -1,0 +1,72 @@
+body {
+    color: #eee;
+    background: #18191a;
+}
+
+body a,
+body a:hover,
+.dropdown-item {
+    color: #eee;
+}
+
+.bg-nav,
+.dropdown-menu {
+    background-color: #242526;
+}
+
+.dropdown-divider {
+    border-top: 1px solid #18191a;
+}
+
+.bg-filters,
+.bg-filters:hover {
+    color: #eee;
+    background-color: #242526;
+}
+
+.close,
+.close:hover {
+    color: white;
+}
+
+.card,
+.list-group-item-action {
+    color: #eee;
+    background-color: #242526;
+}
+
+.bg-app {
+    background-color: #000051;
+}
+
+.badge-app {
+    color: #fff;
+    background-color: #1a237e;
+}
+
+.btn-head,
+.bg-head {
+    color: #fff;
+    border-color: #1a237e;
+    background-color: #1a237e;
+}
+
+.btn-head:hover {
+    color: #fff;
+    border-color: #000051;
+    background-color: #000051;
+}
+
+.jumbotron {
+    background-color: #242526;
+}
+
+.page-link {
+    background-color: #242526;
+    border-color: #18191a;
+}
+
+.page-item.disabled .page-link {
+    background-color: #242526;
+    border-color: #18191a;
+}
