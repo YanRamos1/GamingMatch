@@ -68,7 +68,7 @@
         <div class="col-xl-3 col-md-4 col-sm-6">
           <div class="card mb-4 shadow-sm">
             <a href="/games/{{$game->id}}" style="text-decoration: none;">
-              <img src='{{ $game->image }}' class="card-img-top" />
+              <img src='{{ $game->image }}' class="card-img-top rounded" />
               <div class="card-body" style="padding-bottom: 0px !important;">
                 <h5 class="card-title">{{ $game->name }}</h5>
                 <p class="card-text">

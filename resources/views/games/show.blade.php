@@ -2,6 +2,7 @@
 
 @section('title', $game->name)
 
+<script src="https://use.fontawesome.com/e9752535ba.js"></script>
 @push('scripts')
 <script>
   $("*").focus(function(event) {
@@ -257,7 +258,7 @@
     <div class="row">
       <div class="col-12 col-sm-4">
         <div class="row">
-          <img src='{{ $game->image }}' class="card-img-top col-lg-12" />
+          <img src='{{ $game->image }}' class="card-img-top col-lg-12 rounded" />
           <div class="card-body mb-4 pb-0 col-lg-12">
             @if(count($game->avaliacoes) == 0)
 
@@ -311,6 +312,129 @@
               @endif
             </div>
           </div>
+            <div class="center flex flex-wrap d-flex justify-content-center m-4">
+                @if(isset($gameigdb->websites))
+                    <h3 class="text-white text-center">Links</h3>
+                    <div class="grid grid-cols-4 container m-2">
+                        @foreach($gameigdb->websites as $website)
+                            @if($website['category']===1)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a class="text-center" href="{{$website['url']}}">Oficial</a>
+                                </button>
+                            @endif
+                            @if($website['category']===2)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}">
+                                        <svg class="mx-auto" xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                                             role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet"
+                                             viewBox="0 0 24 24">
+                                            <path
+                                                d="M22.192 11.317c0 .2-.08.392-.222.533l-9.28 9.306a.686.686 0 0 1-.512.224a.743.743 0 0 1-.534-.225l-.654-.614a.284.284 0 0 1-.007-.41l10.713-10.72c.182-.182.497-.054.497.201v1.706zm-11.904 7.018l-.532.475a.445.445 0 0 1-.604-.014l-7.065-6.897a.918.918 0 0 1-.277-.66V9.952c0-.464.566-.698.9-.371l7.499 7.322c.13.13.35.396.35.717c0 .205-.047.495-.27.717zM3.973 4.987l2.431-2.402a.292.292 0 0 1 .41 0l8.139 8.045a2.19 2.19 0 0 1 0 3.12l-2.43 2.401a.293.293 0 0 1-.408 0l-8.14-8.047a2.172 2.172 0 0 1-.65-1.56c0-.59.23-1.144.648-1.557zm9.632 1.375l2.54-2.51a2.241 2.241 0 0 1 1.897-.623c.5.068.956.326 1.313.679l2.571 2.542a.284.284 0 0 1 0 .406l-3.91 3.867a.29.29 0 0 1-.41 0l-4.001-3.956a.285.285 0 0 1 0-.405zM23.7 5.885L18.04.19a.603.603 0 0 0-.852-.002l-4.493 4.485a.898.898 0 0 1-1.262.002L6.94.237a.603.603 0 0 0-.842-.002L.31 5.871c-.2.194-.31.458-.31.733v5.34c0 .271.11.534.305.726l11.277 11.145a.603.603 0 0 0 .846 0L23.696 12.67c.194-.193.304-.455.304-.727V6.606c0-.27-.106-.529-.298-.72z"
+                                                fill="currentColor"/>
+                                        </svg>
+                                    </a>
+                                </button>
+                            @endif
+                            @if($website['category']===3)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}"><i class="fab fa-wikipedia-w"></i></a>
+                                </button>
+                            @endif
+                            @if($website['category']===4)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}"><i class="fab fa-facebook"></i></a>
+                                </button>
+                            @endif
+                            @if($website['category']===5)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}"><i class="fab fa-twitter"></i></a>
+                                </button>
+                            @endif
+                            @if($website['category']===6)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}"><i class="fab fa-twitch"></i></a>
+                                </button>
+                            @endif
+                            @if($website['category']===8)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}"><i class="fab fa-instagram"></i></a>
+                                </button>
+                            @endif
+                            @if($website['category']===9)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}"><i class="fab fa-youtube"></i></a>
+                                </button>
+                            @endif
+                            @if($website['category']===13)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}"><i class="fab fa-steam"></i></a>
+                                </button>
+                            @endif
+                            @if($website['category']===14)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}"><i class="fab fa-reddit"></i></a>
+                                </button>
+                            @endif
+                            @if($website['category']===15)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}"><i class="fab fa-itch-io"></i></a>
+                                </button>
+                            @endif
+                            @if($website['category']===16)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}"><span class="mx-auto iconify"
+                                                                        data-icon="simple-icons:epicgames"></span></a>
+                                </button>
+                            @endif
+                            @if($website['category']===17)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}">
+                                        <svg class="mx-auto" xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                                             role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet"
+                                             viewBox="0 0 32 32">
+                                            <path
+                                                d="M9.531 20.317H5.812a.535.535 0 0 0-.531.537v2.667c0 .281.24.531.531.531h3.735v1.76H4.88a1.37 1.37 0 0 1-1.359-1.375v-4.516c0-.749.615-1.359 1.375-1.359h4.635zm1.349-4.932c0 .776-.625 1.401-1.401 1.401H3.506v-1.803h5.041a.528.528 0 0 0 .532-.531V8.52a.532.532 0 0 0-.532-.537H5.855a.536.536 0 0 0-.548.537v2.692c0 .308.24.532.532.532H8v1.801H4.907a1.392 1.392 0 0 1-1.401-1.385V7.572c0-.761.631-1.385 1.401-1.385H9.47c.771 0 1.395.624 1.395 1.385v7.812zm17.599 10.427h-1.76v-5.495h-1.24a.535.535 0 0 0-.531.537v4.957h-1.776v-5.495h-1.24a.535.535 0 0 0-.531.537v4.957h-1.776v-5.891c0-.749.615-1.359 1.375-1.359h7.479zm.016-10.427c0 .776-.631 1.401-1.401 1.401h-5.973v-1.803h5.041a.53.53 0 0 0 .532-.531V8.52a.535.535 0 0 0-.532-.537h-2.708a.532.532 0 0 0-.532.537v2.692c0 .308.24.532.532.532h2.161v1.801h-3.084a1.386 1.386 0 0 1-1.395-1.385V7.572c0-.761.624-1.385 1.395-1.385h4.573c.776 0 1.401.624 1.401 1.385v7.812zM18.292 6.188h-4.584c-.776 0-1.391.624-1.391 1.385v4.588a1.38 1.38 0 0 0 1.391 1.385h4.584a1.39 1.39 0 0 0 1.391-1.385V7.573c0-.761-.631-1.385-1.391-1.385zm-.396 2.333v2.692c0 .297-.24.532-.536.532h-2.709a.53.53 0 0 1-.531-.532V8.53c0-.291.229-.531.531-.531h2.683c.307 0 .531.24.531.531zm-1.057 10.042h-4.521c-.755 0-1.369.609-1.369 1.359v4.516c0 .76.615 1.375 1.369 1.375h4.521c.76 0 1.375-.615 1.375-1.375v-4.516c0-.749-.615-1.359-1.375-1.359zm-.402 2.292v2.667a.53.53 0 0 1-.531.531v-.011h-2.652a.535.535 0 0 1-.536-.536v-2.651a.54.54 0 0 1 .536-.537h2.667c.292 0 .532.245.532.537zm14.88-19.386A2.32 2.32 0 0 0 29.666.77H2.333A2.322 2.322 0 0 0 0 3.103v25.792a2.322 2.322 0 0 0 2.333 2.333h27.333a2.322 2.322 0 0 0 2.333-2.333V3.103c0-.635-.265-1.224-.683-1.651zm0 27.427a1.638 1.638 0 0 1-1.651 1.651H2.333a1.643 1.643 0 0 1-1.667-1.651V3.104a1.646 1.646 0 0 1 1.651-1.651H29.65c.917 0 1.656.74 1.656 1.651v25.792z"
+                                                fill="currentColor"/>
+                                        </svg>
+                                    </a>
+                                </button>
+                            @endif
+                            @if($website['category']===18)
+                                <button
+                                    class="m-1 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 hover:shadow-lg hover:border-transparent rounded">
+                                    <a href="{{$website['url']}}">
+                                        <svg class="mx-auto" xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                                             role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet"
+                                             viewBox="0 0 24 24">
+                                            <g fill="none">
+                                                <path
+                                                    d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0a12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055a20.03 20.03 0 0 0 5.993 2.98a.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963c.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878a.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028a19.963 19.963 0 0 0 6.002-2.981a.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38c0-1.312.956-2.38 2.157-2.38c1.21 0 2.176 1.077 2.157 2.38c0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38c0-1.312.955-2.38 2.157-2.38c1.21 0 2.176 1.077 2.157 2.38c0 1.312-.946 2.38-2.157 2.38z"
+                                                    fill="currentColor"/>
+                                            </g>
+                                        </svg>
+                                    </a>
+                                </button>
+                            @endif
+                        @endforeach
+                    </div>
+                @endif
+            </div>
         </div>
       </div>
 
@@ -349,20 +473,21 @@
     </div>
   </div>
 
-  @if(count($game->screenshots) != 0)
+  @if(count($gameigdb->screenshots) != 0)
   <div class="p-2 p-sm-5 mb-4 jumbotron rounded-3">
     <h1 class="display-5">Screenshots</h1>
     <div id="carouselScreenshots" class="carousel slide carousel-fade d-md-none d-lg-block" data-bs-ride="carousel">
       <div class="carousel-inner">
         <?php
         $first = true;
-        foreach ($game->screenshots as $screenshot) {
+        foreach ($gameigdb->screenshots as $screenshot) {
           echo '<div class="carousel-item';
           if ($first) {
             $first = false;
             echo ' active';
           };
-          echo '"> <img src="' . $screenshot->url . '" class="d-block w-100">';
+
+          echo '"> <img src="https://images.igdb.com/igdb/image/upload/t_screenshot_big/' . $screenshot['image_id'] . '.png" class="d-block w-100">';
           echo '</div>';
         };
         ?>
@@ -482,7 +607,7 @@
                 {{$avaliacao->updated_at->diffForHumans()}}
               </p>
             </div>
-            
+
             @if(auth()->check() && (auth()->user()->id == $avaliacao->user_id || auth()->user()->isAdmin()))
             <div>
               <button style="cursor:pointer" class="btn btn-danger btn-remover-avaliacao" id="{{$avaliacao->id}}">

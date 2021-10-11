@@ -37,15 +37,6 @@ class Game extends Model
         }
         return $query;
     }
-    public function scopeSimilares($query, $similar)
-    {
-        if (!is_null($similar)) {
-            return $query->whereHas('similares', function ($query) use ($similar) {
-                $query->where('games_similares.game_id', $similar);
-            });
-        }
-        return $query;
-    }
 
     public function scopeAno($query, $ano)
     {
@@ -94,16 +85,6 @@ class Game extends Model
             'platform_id',
         )->withTimestamps();
     }
-    public function similares()
-    {
-        return $this->belongsToMany(
-            Game::class,
-            'games_similares',
-            'game_id',
-            'game_id',
-        )->withTimestamps();
-    }
-
 
     public function wishlists()
     {

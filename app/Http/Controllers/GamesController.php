@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Builder as IGDB;
 use MarcReichel\IGDBLaravel\Models\Game as Ga;
 use App\Models\Game;
@@ -36,7 +37,6 @@ class GamesController extends Controller
         $games = Game::Jogo(request('jogo'))
             ->Plataforma(request('plataforma'))
             ->Genero(request('genero'))
-            ->Genero(request('similar'))
             ->join('games_ratings', 'games_ratings.game_id', '=', 'games.id')
             ->Ano(request('ano'))
             ->Ordem(request('order'))
@@ -49,7 +49,39 @@ class GamesController extends Controller
     public function show($id)
     {
         $game = Game::find($id);
-        return view('games.show', ['game' => $game]);
+        $gameigdb = $this->popularGames = Ga::select(['*'])->with([
+            'artworks' =>['*'],
+            'external_games'=>[
+                'cover'=>'*',
+            ],
+            'expansions'=>['*'],
+            'game_engines'=>['*'],
+            'game_modes'=>['*'],
+            'genres'=>['*'],
+            'involved_companies'=>['*'],
+            'platforms'=>['*'],
+            'player_perspectives'=>['*'],
+            'screenshots'=>['*'],
+            'similar_games'=>[
+                'cover',
+                'slug',
+                'name',
+            ],
+            'themes'=>['*'],
+            'videos'=>['*'],
+            'websites'=>['*'],
+            'cover'=>[
+                'url',
+            ],
+            'collection'=>['*'],
+            'franchises' => ['*'],
+            'parent_game'=>['*'],
+            'dlcs'=>['*'],
+            'similar_games.cover'=>['*'],
+        ])
+            ->where('id', $game->igdb_id)
+            ->first();
+        return view('games.show', ['game' => $game, 'gameigdb' => $gameigdb]);
     }
 
     public function store()
@@ -58,7 +90,7 @@ class GamesController extends Controller
 
         if (count($game_validation) == 0) {
             $igdb = new IGDB('games');
-            $game_value = Ga::with(['cover' => ['image_id'], 'screenshots'])
+            $game_value = Ga::with(['cover' => ['*'], 'screenshots'=>['*']])
                 ->find(request('jogo'));
 
             $game = Game::create([
@@ -66,16 +98,11 @@ class GamesController extends Controller
                 'released_at' => array_key_exists('first_release_date', $game_value->attributes)
                     ? $game_value->attributes['first_release_date']->toDateTimeString()
                     : null,
-                'image' => array_key_exists('cover', $game_value->relations->toArray())
-                    ? 'https://images.igdb.com/igdb/image/upload/t_cover_big/' . $game_value->relations['cover']->attributes['image_id'] . '.jpg'
-                    : null,
+                'image' => Str::replaceFirst('thumb', 'cover_big', $game_value['cover']['url']),
                 'description' => array_key_exists('summary', $game_value->attributes)
                     ? $game_value->attributes['summary']
                     : null,
-
                 'igdb_id' => $game_value->attributes['id'],
-
-
             ]);
 
             if (array_key_exists('genres', $game_value->attributes)) {
@@ -84,10 +111,6 @@ class GamesController extends Controller
 
             if (array_key_exists('platforms', $game_value->attributes)) {
                 $game->plataformas()->attach($game_value->attributes['platforms']);
-            }
-
-            if (array_key_exists('similar_games', $game_value->attributes)) {
-                $game->plataformas()->attach($game_value->attributes['similar_games']);
             }
 
             if (array_key_exists('screenshots', $game_value->relations->toArray())) {
@@ -116,7 +139,7 @@ class GamesController extends Controller
             try {
                 $igdb = new IGDB('games');
                 $games_array = Ga::search(request('query'))
-                    ->with(['cover' => ['image_id'], 'screenshots'])
+                    ->with(['cover'=>['*'], 'screenshots'])
                     ->take(50)
                     ->get();
                 foreach ($games_array as $g => $game_value) {
@@ -127,9 +150,9 @@ class GamesController extends Controller
                             'released_at' => array_key_exists('first_release_date', $game_value->attributes)
                                 ? $game_value->attributes['first_release_date']->toDateTimeString()
                                 : null,
-                            'image' => array_key_exists('cover', $game_value->relations->toArray())
-                                ? 'https://images.igdb.com/igdb/image/upload/t_cover_big/' . $game_value->relations['cover']->attributes['image_id'] . '.jpg'
-                                : null,
+                            'image' => isset($game_value['cover'])
+                                ? Str::replaceFirst('thumb', 'cover_big', $game_value['cover']['url'])
+                                : 'https://via.placeholder.com/264x374',
                             'description' => array_key_exists('summary', $game_value->attributes)
                                 ? $game_value->attributes['summary']
                                 : null,
@@ -142,6 +165,7 @@ class GamesController extends Controller
                 dd($e2);
             }
         }
+
         return view('games.create', compact('games'));
     }
 }

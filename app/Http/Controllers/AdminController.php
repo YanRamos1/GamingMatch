@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Builder as IGDB;
 use MarcReichel\IGDBLaravel\Models\Platform as P;
 use MarcReichel\IGDBLaravel\Models\Genre as Ge;
@@ -56,12 +57,16 @@ class AdminController extends Controller
         try {
             $igdb = new IGDB('games');
 
-            for ($x = 0; $x <= 10; $x++) {
-                $games = Ga::where('rating', '>=', 90)
-                    ->whereIn('platforms', ['48', '130', '12', '37', '4', '5'])
-                    ->with(['cover' => ['image_id'], 'screenshots'])
-                    ->take(500)
-                    ->skip($x * 50)
+                $games = Ga::where('rating', '>=', 60)
+                    ->whereIn('platforms', ['48', '130', '12', '37', '4', '5','8','6','9',])
+                    ->with(['cover' => '*', 'screenshots'])
+                    ->where([
+                        ['genres','!=', null],
+                        ['cover', '!=', null],
+                        ['follows', '!=', null],
+                        ['rating', '!=', null],
+                    ])
+                    ->limit(5000)
                     ->get();
 
                 foreach ($games as $g => $game_value) {
@@ -71,9 +76,7 @@ class AdminController extends Controller
                             'released_at' => array_key_exists('first_release_date', $game_value->attributes)
                                 ? $game_value->attributes['first_release_date']->toDateTimeString()
                                 : null,
-                            'image' => array_key_exists('cover', $game_value->relations->toArray())
-                                ? 'https://images.igdb.com/igdb/image/upload/t_cover_big/' . $game_value->relations['cover']->attributes['image_id'] . '.jpg'
-                                : null,
+                            'image' => Str::replaceFirst('thumb', 'cover_big', $game_value['cover']['url']),
                             'description' => array_key_exists('summary', $game_value->attributes)
                                 ? $game_value->attributes['summary']
                                 : null,
@@ -87,22 +90,19 @@ class AdminController extends Controller
                         if (array_key_exists('platforms', $game_value->attributes)) {
                             $game->plataformas()->attach($game_value->attributes['platforms']);
                         }
-                        if (array_key_exists('similar_games', $game_value->attributes)) {
-                            $game->similares()->attach($game_value->attributes['similar_games']);
-                        }
 
                         if (array_key_exists('screenshots', $game_value->relations->toArray())) {
                             foreach ($game_value->relations->toArray()['screenshots'] as $screenshot => $screnshot_value) {
                                 Screenshot::create([
                                     'game_id' => $game->id,
-                                    'url' => 'https://images.igdb.com/igdb/image/upload/t_original/' . $screnshot_value['image_id'] . '.jpg',
+                                    'url' => Str::replaceFirst('thumb', 'cover_big', $game_value['screenshots']['url']),
                                 ]);
                             }
                         }
                     } catch (Exception $e) {
                     }
                 }
-            }
+
         } catch (Exception $e) {
             $msg = "Ocorreu um erro ao tentar sincronizar os jogos.";
             return response()->json(array('error' => $msg), 200);
