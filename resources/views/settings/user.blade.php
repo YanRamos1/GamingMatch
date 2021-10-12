@@ -235,7 +235,7 @@
             @if($user->isBlocked())
             <img src="{{ URL::asset('image/default-user-image.png') }}" class="card-img-top col-lg-12 rounded-pill">
             @else
-            <img src="{{$user->avatar}}" alt="{{ URL::asset('image/default-user-image.png') }}" class="img-fluid">
+            <img src="{{$user->avatar}}" alt="{{ URL::asset('image/default-user-image.png') }}" class="img-fluid rounded mx-auto">
             @endif
           </div>
           <div class="card-body mb-4 pb-0 col-lg-12">

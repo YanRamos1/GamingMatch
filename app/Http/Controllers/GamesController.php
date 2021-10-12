@@ -12,6 +12,7 @@ use App\Models\Platform;
 use App\Models\Screenshot;
 use App\Models\Year;
 use Exception;
+use MarcReichel\IGDBLaravel\Models\InvolvedCompany;
 
 class GamesController extends Controller
 {
@@ -76,12 +77,42 @@ class GamesController extends Controller
             'collection'=>['*'],
             'franchises' => ['*'],
             'parent_game'=>['*'],
-            'dlcs'=>['*'],
+            'dlcs'=>[
+                'name',
+                'url',
+                'slug',
+            ],
             'similar_games.cover'=>['*'],
         ])
             ->where('id', $game->igdb_id)
             ->first();
-        return view('games.show', ['game' => $game, 'gameigdb' => $gameigdb]);
+
+        $companies = $this->involved = InvolvedCompany::select(
+            ['*']
+        )->with([
+            'company',
+            'game',
+            'game.genres',
+            'game.involved_companies.game',
+            'game.cover',
+            'game.platforms',
+            'company.developed',
+            'company.developed.player_perspectives',
+            'company.logo',
+            'company.developed.genres',
+            'company.developed.external_games',
+            'company.developed.cover',
+            'company.developed.platforms',
+            'company.developed.screenshots',
+        ])
+            ->where([
+                ['game',$game->igdb_id],
+                ['publisher', true],
+
+            ])
+            ->get();
+
+        return view('games.show', ['game' => $game, 'gameigdb' => $gameigdb, 'involved_companies' =>$companies]);
     }
 
     public function store()

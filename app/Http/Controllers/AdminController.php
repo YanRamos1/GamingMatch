@@ -57,16 +57,13 @@ class AdminController extends Controller
         try {
             $igdb = new IGDB('games');
 
-                $games = Ga::where('rating', '>=', 60)
+                $games = Ga::select(['*'])
                     ->whereIn('platforms', ['48', '130', '12', '37', '4', '5','8','6','9',])
                     ->with(['cover' => '*', 'screenshots'])
                     ->where([
-                        ['genres','!=', null],
                         ['cover', '!=', null],
-                        ['follows', '!=', null],
-                        ['rating', '!=', null],
                     ])
-                    ->limit(5000)
+                    ->limit(5000000000000)
                     ->get();
 
                 foreach ($games as $g => $game_value) {
