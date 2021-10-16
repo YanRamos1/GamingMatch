@@ -2,7 +2,7 @@
 
 @section('title', $game->name)
 
-<script src="https://use.fontawesome.com/e9752535ba.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @push('scripts')
     <style>
         .fill {
@@ -11,15 +11,43 @@
             align-items: center;
             overflow: hidden
         }
+
         .fill img {
             flex-shrink: 0;
             min-width: 100%;
             min-height: 100%
         }
-        .cardimg{
-            position: absolute;
-            max-height: 120px;
+
+        .popout {
+            position: absolute !important;
         }
+
+        .imagem {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .divcolor1 {
+            background: #5176A6;
+        }
+
+        .divcolor2 {
+            background: #283240;
+        }
+
+        .divcolor3 {
+            background: #465E73;
+        }
+
+        .divcolor4 {
+            background: #7B92A6;
+        }
+
+        .divcolor5 {
+            background: #9da7b5;
+        }
+
     </style>
     <script>
         $("*").focus(function (event) {
@@ -41,10 +69,148 @@
             event.preventDefault();
 
             let game = "{{$game->id}}";
+            let wishlist = "{{$wishlist}}";
+
+
             let _token = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
                 url: "/wishlist",
+                type: "POST",
+                data: {
+                    game: game,
+                    wishlist: wishlist,
+                    _token: _token,
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $("#reviewform")[0].reset();
+                        window.location.href = "/games/{{$game->id}}";
+                    } else if (response.error) {
+                        new BsToast({
+                            title: 'Ocorreu um erro',
+                            content: response.error,
+                            type: 'danger',
+                            pause_on_hover: true,
+                            delay: 5000,
+                            position: 'top-right'
+                        });
+                    }
+                },      
+                error: function (reject) {
+                    var errors = $.parseJSON(reject.responseText);
+                    if (reject.status === 422) {
+
+                        $.each(errors.errors, function (key, val) {
+                            new BsToast({
+                                title: 'Ocorreu um erro',
+                                content: val,
+                                type: 'danger',
+                                pause_on_hover: true,
+                                delay: 5000,
+                                position: 'top-right'
+                            });
+                        });
+                    } else if (errors.message) {
+                        new BsToast({
+                            title: 'Ocorreu um erro',
+                            content: errors.message,
+                            type: 'danger',
+                            pause_on_hover: true,
+                            delay: 5000,
+                            position: 'top-right'
+                        });
+                    } else {
+                        new BsToast({
+                            title: 'Ocorreu um erro',
+                            content: `Ocorreu um erro ao adicionar este jogo à lista de desejos`,
+                            type: 'danger',
+                            pause_on_hover: true,
+                            delay: 5000,
+                            position: 'top-right'
+                        });
+                    }
+                }
+            });
+        });
+
+        $(".btn-remover-wishlist").click(function (event) {
+            event.preventDefault();
+
+            let game = "{{$game->id}}";
+            let _token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: "/wishlist-delete",
+                type: "DELETE",
+                data: {
+                    game: game,
+
+                    _token: _token,
+                },
+                success: function (response) {
+                    if (response.success) {
+                        window.location.href = "/games/{{$game->id}}";
+                    } else if (response.error) {
+                        new BsToast({
+                            title: 'Ocorreu um erro',
+                            content: response.error,
+                            type: 'danger',
+                            pause_on_hover: true,
+                            delay: 5000,
+                            position: 'top-right'
+                        });
+                    }
+                },
+                error: function (reject) {
+                    var errors = $.parseJSON(reject.responseText);
+                    if (reject.status === 422) {
+
+                        $.each(errors.errors, function (key, val) {
+                            $("#login" + key).addClass('is-invalid');
+                            new BsToast({
+                                title: 'Ocorreu um erro',
+                                content: val,
+                                type: 'danger',
+                                pause_on_hover: true,
+                                delay: 5000,
+                                position: 'top-right'
+                            });
+                        });
+                    } else if (errors.message) {
+                        new BsToast({
+                            title: 'Ocorreu um erro',
+                            content: errors.message,
+                            type: 'danger',
+                            pause_on_hover: true,
+                            delay: 5000,
+                            position: 'top-right'
+                        });
+                    } else {
+                        new BsToast({
+                            title: 'Ocorreu um erro',
+                            content: `Ocorreu um erro ao remover este jogo da lista de desejos`,
+                            type: 'danger',
+                            pause_on_hover: true,
+                            delay: 5000,
+                            position: 'top-right'
+                        });
+                    }
+                }
+            });
+        });
+
+
+        $(".btn-liked").click(function (event) {
+            event.preventDefault();
+
+            let game = "{{$game->id}}";
+
+
+            let _token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: "/liked",
                 type: "POST",
                 data: {
                     game: game,
@@ -102,17 +268,18 @@
             });
         });
 
-        $(".btn-remover-wishlist").click(function (event) {
+        $(".btn-unliked").click(function (event) {
             event.preventDefault();
 
             let game = "{{$game->id}}";
             let _token = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: "/wishlist",
+                url: "/liked",
                 type: "DELETE",
                 data: {
                     game: game,
+
                     _token: _token,
                 },
                 success: function (response) {
@@ -166,6 +333,7 @@
                 }
             });
         });
+
 
         $(".btn-avaliar").click(function (event) {
             event.preventDefault();
@@ -321,7 +489,8 @@
                                 </div>
                             @endif
                             <div class="row" style="padding-bottom: 0px !important; margin: auto">
-                                @if(count($game->wishlists) == 0)
+
+                                @if($wishlist == null)
                                     <button type="button" class="btn btn-warning btn-wishlist">Adicionar à lista de
                                         desejos
                                     </button>
@@ -329,6 +498,14 @@
                                     <button type="button" class="btn btn-danger btn-remover-wishlist">Remover da lista
                                         de desejos
                                     </button>
+                                @endif
+                            </div>
+                            <div class="row" style="padding-bottom: 0px !important; margin: auto">
+
+                                @if($likedgames == null)
+                                    <button type="button" class="btn btn-warning btn-liked">Curtir</button>
+                                @else
+                                    <button type="button" class="btn btn-danger btn-unliked">Descurtir</button>
                                 @endif
                             </div>
                         </div>
@@ -516,25 +693,30 @@
                             @endif
                             @if(isset($gameigdb->similar_games))
                                 <h3 class="text-center text-white">Jogos similares</h3>
-                                <div class="grid grid-cols-1 gap-auto  md:grid-cols-3 gap-10">
+                                <div class="grid grid-cols-3">
                                     @foreach($gameigdb->similar_games as $similar_games)
-                                        <div class="bg-dark d-block rounded shadow-lg mx-auto" >
-                                            <div class="d-block fill">
+                                        <div class="d-block m-3" style="width: 18rem;">
+                                            <div class="mx-auto absolute text-center align-center">
                                                 <h4 class="text-center text-y-auto justify-self-center text-white">
                                                     {{$similar_games['name']}}
                                                 </h4>
+                                            </div>
+                                            <div class="d-block fill">
                                                 <img
                                                     src="{{ str_replace('t_thumb', 't_cover_big', $similar_games['cover']['url'] ?? null) }}"
                                                     alt="game cover"
-                                                    class="rounded static-cover mx-auto d-block hover:opacity-0 transition ease-in-out duration-150">
+                                                    class="cardimg img-fluid rounded relative d-block mx-auto d-block hover:opacity-0 transition ease-in-out duration-150">
                                             </div>
 
                                             <form method="POST" action="/games">
                                                 {{ csrf_field() }}
-                                                <input hidden value="{{$similar_games['id']}}" name="jogo" />
-                                                <button class="btn btn-primary container-fluid" type="submit" id="btn-buscar">Ver</button>
+                                                <input hidden value="{{$similar_games['id']}}" name="jogo"/>
+                                                <button class="btn btn-primary container-fluid" type="submit"
+                                                        id="btn-buscar">Ver
+                                                </button>
                                             </form>
                                         </div>
+
                                     @endforeach
                                 </div>
                             @endif
@@ -545,7 +727,7 @@
             </div>
         </div>
 
-        @if(count($gameigdb->screenshots) != 0)
+        @if(isset($gameigdb->screenshots))
             <div class="p-2 p-sm-5 mb-4 jumbotron rounded-3">
                 <h1 class="display-5">Screenshots</h1>
                 <div id="carouselScreenshots" class="carousel slide carousel-fade d-md-none d-lg-block"

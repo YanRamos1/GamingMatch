@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Likedgames;
+use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Builder as IGDB;
@@ -112,7 +115,20 @@ class GamesController extends Controller
             ])
             ->get();
 
-        return view('games.show', ['game' => $game, 'gameigdb' => $gameigdb, 'involved_companies' =>$companies]);
+        $wishlist = Wishlist::where('user_id', '=', Auth::id())->where('game_id', '=', $game->id)->first();
+        $likedgames = Likedgames::where('user_id', '=', Auth::id())->where('game_id', '=', $game->id)->first();
+        $games = Game::select(['*'])->get();
+
+
+
+        return view('games.show', [
+            'game' => $game,
+            'gameigdb' => $gameigdb,
+            'involved_companies' =>$companies,
+            'wishlist' =>$wishlist,
+            'games' => $games,
+            'likedgames'=>$likedgames
+        ]);
     }
 
     public function store()

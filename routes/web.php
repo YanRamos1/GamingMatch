@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LikedGamesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegistrationController;
@@ -59,8 +60,19 @@ Route::post('/admin/settings/jogo', [AdminController::class, 'sincornizarJogos']
 
 Route::get('/wishlist', [WishlistController::class, 'index']);
 Route::post('/wishlist', [WishlistController::class, 'store']);
-Route::delete('/wishlist', [WishlistController::class, 'delete']);
+Route::delete('/wishlist-delete', [WishlistController::class, 'delete']);
 
-Route::get("add-friend/{userName}", [HomeController::class, 'addFriend'])->name('add.friend');
+Route::get('/liked', [LikedGamesController::class, 'index']);
+Route::post('/liked', [LikedGamesController::class, 'store']);
+Route::delete('/liked', [LikedGamesController::class, 'delete']);
+
+Route::get("/users/add/{id}", [UsersController::class, 'addFriend'])->name('add.friend');
+Route::get("/users/accept/{id}", [UsersController::class, 'acceptFriend'])->name('accept.friend');
+Route::get("/users/delete/{id}", [UsersController::class, 'deleteFriend'])->name('delete.friend');
+Route::get("/users/deny/{id}", [UsersController::class, 'denyFriend'])->name('deny.friend');
+Route::get("/users/block/{id}", [UsersController::class, 'blockFriend'])->name('block.friend');
+Route::get("/users/unblock/{id}", [UsersController::class, 'unblockFriend'])->name('unblock.friend');
+
+
 
 

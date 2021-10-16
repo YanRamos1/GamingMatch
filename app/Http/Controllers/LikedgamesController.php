@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Models\Game;
 use App\Models\Genre;
+use App\Models\Likedgames;
 use App\Models\Platform;
-use App\Models\Year;
 use App\Models\Wishlist;
-use Exception;
+use App\Models\Year;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class WishlistController extends Controller
+class LikedgamesController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');
@@ -33,53 +33,53 @@ class WishlistController extends Controller
                 ->whereColumn('games_genres.genre_id', 'genres.id');
         })->orderBy('name')->get()->toArray();
         $years = Year::all();
-        $wishlist = Wishlist::User(auth()->user()->id)->get();
-        // dd($wishlist);
-        return view('wishlist.index', compact('wishlist', 'platforms', 'genres', 'years', 'params'));
+        $likedgames = Likedgames::User(auth()->user()->id)->get();
+
+        return view('likedgames.index', compact('likedgames', 'platforms', 'genres', 'years', 'params'));
     }
 
     public function store()
     {
-        $wishlist = Wishlist::where('user_id', '=', auth()->id())
+        $likedgames = Likedgames::where('user_id', '=', auth()->id())
             ->where('game_id', '=', request('game'))
             ->get();
 
-        if (count($wishlist) == 0) {
+        if (count($likedgames) == 0) {
             try {
-                Wishlist::create([
+                Likedgames::create([
                     'user_id' => auth()->id(),
                     'game_id' => request('game'),
                 ]);
             } catch (Exception $e) {
-                $msg = "Ocorreu um erro ao tentar adicioanr este jogo à lista de desejos.";
+                $msg = "Ocorreu um erro ao tentar curtir.";
                 return response()->json(array('error' => $msg), 200);
             }
         } else {
-            $msg = '<b>' .  auth()->user()->name . '</b>, não é possível adicionar o mesmo jogo duas vezes à lista de desejos.';
+            $msg = '<b>' .  auth()->user()->name . '</b>, Não é possivel curtir o jogo duas vezes.';
             return response()->json(array('error' => $msg), 200);
         }
 
         $game = Game::find(request('game'));
 
-        session()->flash('message', '<b>' . $game->name . '</b> adicionado à lista de desejos com sucesso.');
-        session()->flash('title', 'Lista de Desejos');
+        session()->flash('message', '<b>' . $game->name . '</b> Curtido.');
+        session()->flash('title', 'Curtir');
         session()->flash('type', 'success');
 
-        $msg = '<b>' . $game->name . '</b> adicionado à lista de desejos com sucesso.';
+        $msg = '<b>' . $game->name . '</b> Curtido';
         return response()->json(array('success' => $msg), 200);
     }
 
     public function delete()
     {
-        $wishlist = Wishlist::where('user_id', Auth::id())
+        $likedgames = Likedgames::where('user_id', Auth::id())
             ->where('game_id', '=', request('game'))
             ->get();
 
 
-        if (count($wishlist) != 0) {
+        if (count($likedgames) != 0) {
             try {
-                $wishlist = Wishlist::where('user_id', '=', Auth::id())->where('game_id', '=', request('game'))->first();
-                $wishlist->delete();
+                $likedgames = Likedgames::where('user_id', '=', Auth::id())->where('game_id', '=', request('game'))->first();
+                $likedgames->delete();
             } catch (Exception $e) {
                 $msg = "Ocorreu um erro ao tentar remover este jogo da lista de desejos.";
                 return response()->json(array('error' => $msg), 200);

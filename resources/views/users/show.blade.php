@@ -174,6 +174,24 @@
                                         @endforeach
                                     </div>
                                 @endif
+                                @if(count($wishlist) > 0)
+                                    <hr>
+                                    <div class="row mt-2">
+                                        <h5 class="mb-4">Lista de jogos curtidos</h5>
+                                    </div>
+                                    <div class="row overflow-auto mb-3" style="max-height: 200px">
+                                        @foreach($likedgames as $liked)
+                                            <div class="col-3 mb-2">
+                                                <a href="/games/{{$liked->jogo->id}}" style="text-decoration: none;"
+                                                   data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                   title="{{$liked->jogo->name}}">
+                                                    <img src='{{ $liked->jogo->image }}' class="card-img-top"/>
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+
 
                             @endif
                         </div>
@@ -181,15 +199,101 @@
                 </div>
                 <div>
                     <div class="caption">
-                            @if ( Auth::id() != $user->id)
-                            <button wire:click="addToFriend({{ $user->id }})" type="button"
-                                    class="btn btn-sm btn-success js_friend-add">
-                                <i class="fa fa-user-plus mr-2"></i>
-                                <span id="friendship-status-{{$user->id}}">
-                                    Add Friend
+                        @if (Auth::id() != $user->id)
+                            @if(isset($friendshipsReceived))
+                                @if(($friendshipsReceived->status == 'pending'))
+                                    <div>
+                                        <button class="btn btn-info" type="button"
+                                                onclick="window.location='{{ url("users/accept/$user->id") }}'">
+                                            <i class="fa fa-user-plus mr-2"></i>
+                                            <span id="friendship-status-">
+                                    Aceitar pedido de amizade
+                                    </span>
+                                        </button>
+                                    </div>
+                                @endif
+                                @if(($friendshipsReceived->status == 'accepted'))
+                                    Amigos
+                                @endif
+                            @elseif($friendshipSend==null)
+                                <button class="btn btn-info" type="button"
+                                        onclick="window.location='{{ url("users/add/$user->id") }}'">
+                                    <i class="fa fa-user-plus mr-2"></i>
+                                    <span id="friendship-status">
+                                    Enviar pedido de amizade
                                 </span>
-                            </button>
+                                </button>
                             @endif
+                            @if(isset($friendshipsReceived))
+                                @if($friendshipsReceived->status == 'denied' and $friendshipSend == null)
+                                    <button class="btn btn-info" type="button"
+                                            onclick="window.location='{{ url("users/add/$user->id") }}'">
+                                        <i class="fa fa-user-plus mr-2"></i>
+                                        <span id="friendship-status-">Enviar pedido de amizade</span>
+                                    </button>
+                                @endif
+                            @endif
+                            @if(isset($friendshipSend))
+                                @if(($friendshipSend->status == 'pending'))
+                                    Pedido de amizade pendente
+                                @elseif(($friendshipSend->status == 'accepted'))
+                                    Amigos
+                                @elseif(($friendshipSend->status == 'denied' and $friendshipsReceived ==null))
+                                    Pedido de amizade recusado
+                                @endif
+                            @endif
+                        @endif
+
+                        @if ( Auth::id() == $user->id)
+                            <div>
+                                <div class="row mt-2">
+                                    <h5 class="mb-4">Pedidos de amizade pendentes</h5>
+                                </div>
+                                @foreach ($user->getFriendRequests() as $request)
+                                    <div>
+                                        <div style="display: none">{{$sender_id = $request->sender->id}}</div>
+                                        {{$request->sender->name}}
+                                        <button class="btn btn-info" type="button"
+                                                onclick="window.location='{{ url("users/accept/$sender_id") }}'">
+                                            <i class="fa fa-user-plus mr-2"></i>
+                                            <span id="friendship-status-">Aceitar</span>
+                                        </button>
+                                        <button class="btn btn-info" type="button"
+                                                onclick="window.location='{{ url("users/deny/$sender_id") }}'">
+                                            <i class="fa fa-user-plus mr-2"></i>
+                                            <span id="friendship-status-">Recusar</span>
+                                        </button>
+                                    </div>
+                                @endforeach
+                            </div>
+                            @if($user->getAcceptedFriendships() != null)
+                                @foreach($user->getAcceptedFriendships() as $friends)
+                                    <div class="grid column-1">
+                                        @if($friends->sender->name != $user->name)
+                                            {{$friends->sender->name}}
+                                            <div style="display: none">{{$friend_id = $friends->sender->id}}</div>
+                                            <button class="btn btn-info" type="button"
+                                                    onclick="window.location='{{ url("users/delete/$friend_id") }}'">
+                                                <i class="fa fa-user-plus mr-2"></i>
+                                                <span id="friendship-status-">Deletar amigo</span>
+                                            </button>
+                                        @endif
+                                    </div>
+                                    <div class="grid column-1">
+                                        @if($friends->sender->name == $user->name)
+                                            {{$friends->recipient->name}}
+                                            <div
+                                                style="display: none">{{$friend_id = $friends->recipient->id}}</div>
+                                            <button class="btn btn-info" type="button"
+                                                    onclick="window.location='{{ url("users/delete/$friend_id") }}'">
+                                                <i class="fa fa-user-plus mr-2"></i>
+                                                <span id="friendship-status-">Deletar amigo</span>
+                                            </button>
+                                        @endif
+                                    </div>
+                                @endforeach
+                            @endif
+                        @endif
                     </div>
                 </div>
                 <div class="col-12 col-sm-8">

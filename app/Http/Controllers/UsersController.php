@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Wishlist;
+use App\Models\LikedGames;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Controller;
+use Multicaret\Acquaintances\Models\Friendship;
+use Multicaret\Acquaintances\Traits\Friendable;
 
 
 class UsersController extends Controller
@@ -34,13 +37,42 @@ class UsersController extends Controller
 
     public function show($id)
     {
+
         $user = User::find($id);
+
+        $friendshipsReceived = Friendship::select(['*'])
+            ->where('recipient_id',Auth::user()->id)
+            ->where('sender_id',$user->id)
+            ->first();
+
+        $friendshipSend = Friendship::select(['*'])
+            ->where('recipient_id',$user->id)
+            ->where('sender_id',Auth::user()->id)
+            ->first();
+
+        $allfriends = Friendship::select(['*'])
+            ->where('status','accepted')
+            ->where('sender_id',Auth::user()->id)->where('recipient_id',$user->id)->get();
+
+
 
         $wishlist = Wishlist::User($id)
             ->orderBy('updated_at', 'desc')
             ->get();
 
-        return view('users.show', ['user' => $user, 'wishlist' => $wishlist]);
+        $likedgames = LikedGames::User($id)
+        ->orderBy('updated_at', 'desc')
+        ->get();
+
+        return view('users.show', [
+            'user' => $user,
+            'wishlist' => $wishlist,
+            'likedgames'=>$likedgames,
+            'friendshipsReceived'=>$friendshipsReceived,
+            'friendshipSend'=>$friendshipSend,
+            'allfriends'=>$allfriends,
+
+        ]);
     }
     public function redirectToProvider($provider)
     {
@@ -67,4 +99,41 @@ class UsersController extends Controller
         Auth::login($user);
         return redirect($this->redirectTo);
     }
+
+    public function addFriend ($id){
+        $user = User::find($id);
+        (Auth::user())->befriend($user);
+        return redirect("/users/$user->id");
+    }
+    public function blockFriend ($id){
+        $user = User::find($id);
+        (Auth::user())->blockFriend($user);
+        return redirect("/users/$user->id");
+    }
+    public function unblockFriend ($id){
+        $user = User::find($id);
+        (Auth::user())->unblockFriend($user);
+        return redirect("/users/$user->id");
+    }
+    public function deleteFriend ($id){
+        $user = User::find($id);
+        $myaccount_id = Auth::user()->id;
+        (Auth::user())->unfriend($user);
+        return redirect("/users/$user->id");
+    }
+    public function acceptFriend ($id){
+        $user = User::find($id);
+        $myaccount_id = Auth::user()->id;
+        (Auth::user())->acceptFriendRequest($user);
+        return redirect("/users/$myaccount_id");
+    }
+    public function denyFriend ($id){
+        $user = User::find($id);
+        $myaccount_id = Auth::user()->id;
+        (Auth::user())->denyFriendRequest($user);
+        return redirect("/users/$myaccount_id");
+    }
+
+
+
 }
