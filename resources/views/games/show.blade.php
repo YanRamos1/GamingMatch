@@ -96,7 +96,7 @@
                             position: 'top-right'
                         });
                     }
-                },      
+                },
                 error: function (reject) {
                     var errors = $.parseJSON(reject.responseText);
                     if (reject.status === 422) {
@@ -445,6 +445,7 @@
                     <div class="row">
                         <img src='{{ $game->image }}' class="card-img-top col-lg-12 rounded"/>
                         <div class="card-body mb-4 pb-0 col-lg-12">
+                            Likes: {{$game->likersCount()}}
                             @if(count($game->avaliacoes) == 0)
 
                                 <div class="row mb-4" style="padding-bottom: 0px !important; margin: auto">
@@ -503,9 +504,9 @@
                             <div class="row" style="padding-bottom: 0px !important; margin: auto">
 
                                 @if($likedgames == null)
-                                    <button type="button" class="btn btn-warning btn-liked">Curtir</button>
+                                    <button type="button" onclick="window.location='{{ url("/games/like/$game->id") }}'" class="btn btn-warning btn-liked">Curtir</button>
                                 @else
-                                    <button type="button" class="btn btn-danger btn-unliked">Descurtir</button>
+                                    <button type="button" onclick="window.location='{{ url("/games/unlike/$game->id") }}'" class="btn btn-danger btn-unliked">Descurtir</button>
                                 @endif
                             </div>
                         </div>
@@ -891,6 +892,27 @@
                                     @endif
                                 </div>
                                 <p>{{$avaliacao->commentary}}</p>
+
+                                @if(auth()->user()->hasliked($avaliacao))
+                                    <div>
+                                        Já curtido
+                                        <button class="btn btn-info" type="button"
+                                                onclick="window.location='{{ url("/rating/unlike/$avaliacao->id") }}'">
+                                            <i class="fa fa-user-plus mr-2"></i>
+                                            <span id="friendship-status-">Unlike</span>
+                                        </button>
+                                    </div>
+                                @elseif(!auth()->user()->hasliked($avaliacao))
+                                <button class="btn btn-info" type="button"
+                                        onclick="window.location='{{ url("/rating/like/$avaliacao->id") }}'">
+                                    <i class="fa fa-user-plus mr-2"></i>
+                                    <span id="friendship-status-">Like</span>
+                                </button>
+                                @endif
+                                <div>
+                                    Likes: {{count($avaliacao->likers()->get())}}
+                                </div>
+
                             </div>
                         </div>
                     @endforeach

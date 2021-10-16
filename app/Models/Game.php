@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Multicaret\Acquaintances\Traits\CanBeLiked;
 
 class Game extends Model
 {
     use HasFactory;
+    use CanBeLiked;
 
     public function scopeJogo($query, $jogo)
     {

@@ -58,12 +58,12 @@ class AdminController extends Controller
             $igdb = new IGDB('games');
 
                 $games = Ga::select(['*'])
-                    ->whereIn('platforms', ['8','9','48','167','49','12','169','11'])
+                    ->whereIn('platforms', ['6'])
                     ->with(['cover' => '*', 'screenshots'])
                     ->where([
                         ['cover', '!=', null],
                     ])
-                    ->orderBy('follows','desc')
+                    ->orderBy('rating','desc')
                     ->limit(5000000000000)
                     ->get();
 

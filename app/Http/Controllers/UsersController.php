@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
+use App\Models\Rating;
 use App\Models\User;
 use App\Models\Wishlist;
 use App\Models\LikedGames;
@@ -132,6 +134,39 @@ class UsersController extends Controller
         $myaccount_id = Auth::user()->id;
         (Auth::user())->denyFriendRequest($user);
         return redirect("/users/$myaccount_id");
+    }
+
+    public function likeRating ($id){
+        $rating = Rating::find($id);
+        Auth::user()->like($rating);
+        return redirect("/games/$rating->game_id");
+    }
+
+    public function unlikeRating ($id){
+        $rating = Rating::find($id);
+        Auth::user()->unlike($rating);
+        return redirect("/games/$rating->game_id");
+    }
+
+    public function follow ($id){
+        $user = User::find($id);
+        (Auth::user())->follow($user);
+        return redirect("/users/$user->id");
+    }
+    public function unfollow ($id){
+        $user = User::find($id);
+        (Auth::user())->unfollow($user);
+        return redirect("/users/$user->id");
+    }
+    public function likegame ($id){
+        $game = Game::find($id);
+        (Auth::user())->like($game);
+        return redirect("/games/$game->id");
+    }
+    public function unlikegame ($id){
+        $game = Game::find($id);
+        (Auth::user())->unlike($game);
+        return redirect("/games/$game->id");
     }
 
 

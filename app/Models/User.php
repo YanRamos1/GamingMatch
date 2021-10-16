@@ -20,7 +20,7 @@ class User extends Authenticatable
 
     use Friendable;
     use CanFollow, CanBeFollowed;
-    use CanLike, CanBeLiked;
+    use CanLike;
     use CanRate, CanBeRated;
 
 
