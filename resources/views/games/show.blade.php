@@ -445,9 +445,8 @@
                     <div class="row">
                         <img src='{{ $game->image }}' class="card-img-top col-lg-12 rounded"/>
                         <div class="card-body mb-4 pb-0 col-lg-12">
-                            Likes: {{$game->likersCount()}}
+                            Likes:{{$game->likersCount()}}
                             @if(count($game->avaliacoes) == 0)
-
                                 <div class="row mb-4" style="padding-bottom: 0px !important; margin: auto">
               <span class="btn btn-outline-primary btn-outline-secondary disabled">
                 Sem avaliações recentes
@@ -504,9 +503,18 @@
                             <div class="row" style="padding-bottom: 0px !important; margin: auto">
 
                                 @if($likedgames == null)
-                                    <button type="button" onclick="window.location='{{ url("/games/like/$game->id") }}'" class="btn btn-warning btn-liked">Curtir</button>
+
+                                    <button class="btn btn-warning btn-liked" type="button"
+                                            onclick="window.location='{{ url("/games/like/$game->id") }}'">
+                                        <i class="fa fa-user-plus mr-2"></i>
+                                        <span id="friendship-status-">Like</span>
+                                    </button>
                                 @else
-                                    <button type="button" onclick="window.location='{{ url("/games/unlike/$game->id") }}'" class="btn btn-danger btn-unliked">Descurtir</button>
+                                    <button class="btn btn-danger btn-unliked" type="button"
+                                            onclick="window.location='{{ url("/games/unlike/$game->id") }}'">
+                                        <i class="fa fa-user-plus mr-2"></i>
+                                        <span id="friendship-status-">Unlike</span>
+                                    </button>
                                 @endif
                             </div>
                         </div>
@@ -692,6 +700,21 @@
                                     @endforeach
                                 </div>
                             @endif
+
+
+                            @if(isset($gameigdb['videos']))
+                                @foreach($gameigdb['videos'] as $video)
+                                    <div class="responsive-container overflow-hidden relative"
+                                         style="padding-top: 56.25%">
+                                        <iframe width="560" height="315"
+                                                class="responsive-iframe absolute top-0 left-0 w-full h-full"
+                                                src="https://www.youtube.com/embed/{{$video['video_id']}}" style="border:0;"
+                                                allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                    </div>
+                                @endforeach
+                            @endif
+
+
                             @if(isset($gameigdb->similar_games))
                                 <h3 class="text-center text-white">Jogos similares</h3>
                                 <div class="grid grid-cols-3">
@@ -708,6 +731,7 @@
                                                     alt="game cover"
                                                     class="cardimg img-fluid rounded relative d-block mx-auto d-block hover:opacity-0 transition ease-in-out duration-150">
                                             </div>
+
 
                                             <form method="POST" action="/games">
                                                 {{ csrf_field() }}
@@ -761,6 +785,7 @@
                 </div>
             </div>
         @endif
+
 
         <div class="p-2 p-sm-5 mb-4 jumbotron rounded-3">
             <h1 class="display-5">Avaliações</h1>
@@ -892,22 +917,23 @@
                                     @endif
                                 </div>
                                 <p>{{$avaliacao->commentary}}</p>
-
-                                @if(auth()->user()->hasliked($avaliacao))
-                                    <div>
-                                        Já curtido
+                                @if(auth()->user() !== null)
+                                    @if(auth()->user()->hasliked($avaliacao))
+                                        <div>
+                                            Já curtido
+                                            <button class="btn btn-info" type="button"
+                                                    onclick="window.location='{{ url("/rating/unlike/$avaliacao->id") }}'">
+                                                <i class="fa fa-user-plus mr-2"></i>
+                                                <span id="friendship-status-">Unlike</span>
+                                            </button>
+                                        </div>
+                                    @elseif(!auth()->user()->hasliked($avaliacao))
                                         <button class="btn btn-info" type="button"
-                                                onclick="window.location='{{ url("/rating/unlike/$avaliacao->id") }}'">
+                                                onclick="window.location='{{ url("/rating/like/$avaliacao->id") }}'">
                                             <i class="fa fa-user-plus mr-2"></i>
-                                            <span id="friendship-status-">Unlike</span>
+                                            <span id="friendship-status-">Like</span>
                                         </button>
-                                    </div>
-                                @elseif(!auth()->user()->hasliked($avaliacao))
-                                <button class="btn btn-info" type="button"
-                                        onclick="window.location='{{ url("/rating/like/$avaliacao->id") }}'">
-                                    <i class="fa fa-user-plus mr-2"></i>
-                                    <span id="friendship-status-">Like</span>
-                                </button>
+                                    @endif
                                 @endif
                                 <div>
                                     Likes: {{count($avaliacao->likers()->get())}}

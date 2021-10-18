@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -32,7 +33,13 @@
   <link href="{{ asset('css/rate.css') }}" rel="stylesheet">
   <link href="{{ asset('css/toast.css') }}" rel="stylesheet">
 
-  {{--Favicon--}}
+
+    <!-- PWA  -->
+    <meta name="theme-color" content="#6F899FFF"/>
+    <link rel="apple-touch-icon" href="{{ asset('logo.PNG') }}">
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
+
+    {{--Favicon--}}
   <link rel="shortcut icon" href="{{ URL::asset('image/favicon.ico') }}" type="image/x-icon" />
     @livewireStyles
 </head>
@@ -48,6 +55,15 @@
     </main>
   </div>
   @stack('scripts')
+
+<script src="{{ asset('/sw.js') }}"></script>
+<script>
+    if (!navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register("/sw.js").then(function (reg) {
+            console.log("Service worker has been registered for scope: " + reg.scope);
+        });
+    }
+</script>
 </body>
 
 </html>

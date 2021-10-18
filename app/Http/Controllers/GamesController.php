@@ -117,7 +117,9 @@ class GamesController extends Controller
 
         $wishlist = Wishlist::where('user_id', '=', Auth::id())->where('game_id', '=', $game->id)->first();
         $likedgames = Likedgames::where('user_id', '=', Auth::id())->where('game_id', '=', $game->id)->first();
-        $games = Game::select(['*'])->get();
+        $games = Game::select(['igdb_id'])->get();
+
+
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use MarcReichel\IGDBLaravel\Builder as IGDB;
 use MarcReichel\IGDBLaravel\Models\Platform as P;
@@ -54,59 +55,115 @@ class AdminController extends Controller
 
     public function sincornizarJogos()
     {
+        $current = Carbon::now()->timestamp;
+
         try {
             $igdb = new IGDB('games');
 
-                $games = Ga::select(['*'])
-                    ->whereIn('platforms', ['6'])
-                    ->with(['cover' => '*', 'screenshots'])
-                    ->where([
-                        ['cover', '!=', null],
-                    ])
-                    ->orderBy('rating','desc')
-                    ->limit(5000000000000)
-                    ->get();
+            $games = Ga::select(['*'])
+                ->with(['cover' => '*', 'screenshots'])
+                ->where([
+                    ['genres', [null]],
+                    ['cover', '!=', null],
+                    ['follows', '!=', null],
+                    ['rating', '!=', null],
+                    ['platforms', ['6', '9', '49', '48']],
+                    ['first_release_date', '<', $current]
 
-                foreach ($games as $g => $game_value) {
-                    try {
-                        $game = Game::create([
-                            'name' => $game_value->attributes['name'],
-                            'released_at' => array_key_exists('first_release_date', $game_value->attributes)
-                                ? $game_value->attributes['first_release_date']->toDateTimeString()
-                                : null,
-                            'image' => Str::replaceFirst('thumb', 'cover_big', $game_value['cover']['url']),
-                            'description' => array_key_exists('summary', $game_value->attributes)
-                                ? $game_value->attributes['summary']
-                                : null,
-                            'igdb_id' => $game_value->attributes['id'],
-                        ]);
+                ])
+                ->orderBy('follows', 'desc')
+                ->limit(5000000000000)
+                ->get();
 
-                        if (array_key_exists('genres', $game_value->attributes)) {
-                            $game->generos()->attach($game_value->attributes['genres']);
-                        }
+            $games2 = Ga::select(['*'])
+                ->with(['cover' => '*', 'screenshots'])
+                ->where([
+                    ['genres', [null]],
+                    ['cover', '!=', null],
+                    ['follows', '!=', null],
+                    ['rating', '!=', null],
+                    ['platforms', ['6', '9', '49', '48']],
+                    ['first_release_date', '>', $current]
 
-                        if (array_key_exists('platforms', $game_value->attributes)) {
-                            $game->plataformas()->attach($game_value->attributes['platforms']);
-                        }
+                ])
+                ->orderBy('follows', 'desc')
+                ->limit(5000000000000)
+                ->get();
 
-                        if (array_key_exists('screenshots', $game_value->relations->toArray())) {
-                            foreach ($game_value->relations->toArray()['screenshots'] as $screenshot => $screnshot_value) {
-                                Screenshot::create([
-                                    'game_id' => $game->id,
-                                    'url' => Str::replaceFirst('thumb', 'cover_big', $game_value['screenshots']['url']),
-                                ]);
-                            }
-                        }
-                    } catch (Exception $e) {
+
+            foreach ($games as $g => $game_value) {
+                try {
+                    $game = Game::create([
+                        'name' => $game_value->attributes['name'],
+                        'released_at' => array_key_exists('first_release_date', $game_value->attributes)
+                            ? $game_value->attributes['first_release_date']->toDateTimeString()
+                            : null,
+                        'image' => Str::replaceFirst('thumb', 'cover_big', $game_value['cover']['url']),
+                        'description' => array_key_exists('summary', $game_value->attributes)
+                            ? $game_value->attributes['summary']
+                            : null,
+                        'igdb_id' => $game_value->attributes['id'],
+                    ]);
+
+                    if (array_key_exists('genres', $game_value->attributes)) {
+                        $game->generos()->attach($game_value->attributes['genres']);
                     }
+
+                    if (array_key_exists('platforms', $game_value->attributes)) {
+                        $game->plataformas()->attach($game_value->attributes['platforms']);
+                    }
+
+                    if (array_key_exists('screenshots', $game_value->relations->toArray())) {
+                        foreach ($game_value->relations->toArray()['screenshots'] as $screenshot => $screnshot_value) {
+                            Screenshot::create([
+                                'game_id' => $game->id,
+                                'url' => Str::replaceFirst('thumb', 'cover_big', $game_value['screenshots']['url']),
+                            ]);
+                        }
+                    }
+                } catch (Exception $e) {
                 }
+            }
+            foreach ($games2 as $g => $game_value) {
+                try {
+                    $game = Game::create([
+                        'name' => $game_value->attributes['name'],
+                        'released_at' => array_key_exists('first_release_date', $game_value->attributes)
+                            ? $game_value->attributes['first_release_date']->toDateTimeString()
+                            : null,
+                        'image' => Str::replaceFirst('thumb', 'cover_big', $game_value['cover']['url']),
+                        'description' => array_key_exists('summary', $game_value->attributes)
+                            ? $game_value->attributes['summary']
+                            : null,
+                        'igdb_id' => $game_value->attributes['id'],
+                    ]);
+
+                    if (array_key_exists('genres', $game_value->attributes)) {
+                        $game->generos()->attach($game_value->attributes['genres']);
+                    }
+
+                    if (array_key_exists('platforms', $game_value->attributes)) {
+                        $game->plataformas()->attach($game_value->attributes['platforms']);
+                    }
+
+                    if (array_key_exists('screenshots', $game_value->relations->toArray())) {
+                        foreach ($game_value->relations->toArray()['screenshots'] as $screenshot => $screnshot_value) {
+                            Screenshot::create([
+                                'game_id' => $game->id,
+                                'url' => Str::replaceFirst('thumb', 'cover_big', $game_value['screenshots']['url']),
+                            ]);
+                        }
+                    }
+                } catch (Exception $e) {
+                }
+            }
 
         } catch (Exception $e) {
             $msg = "Ocorreu um erro ao tentar sincronizar os jogos.";
             return response()->json(array('error' => $msg), 200);
         }
 
-        $msg = "Jogos sincronizadas com sucesso.";
+        $msg = "Plataformas sincronizadas com sucesso.";
         return response()->json(array('success' => $msg), 200);
     }
 
