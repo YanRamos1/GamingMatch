@@ -6,24 +6,24 @@
 <div class="container py-3">
   <div class="row">
     <div class="col-lg-4">
-      <h2>Plataformas</h2>
-      <p>Atualiza a base de dados com plataformas.</p>
+      <h2 style="color: #f3821c;">Plataformas</h2>
+      <p style="color: #f3821c;">Atualiza a base de dados com plataformas.</p>
       <button style="cursor:pointer" class="btn btn-secondary btn-plataformas">
         Sincronizar &raquo;
       </button>
     </div><!-- /.col-lg-4 -->
 
     <div class="col-lg-4">
-      <h2>Gêneros</h2>
-      <p>Atualiza a base de dados com gêneros de jogos.</p>
+      <h2 style="color: #f3821c;">Gêneros</h2>
+      <p style="color: #f3821c;">Atualiza a base de dados com gêneros de jogos.</p>
       <button style="cursor:pointer" class="btn btn-secondary btn-generos">
         Sincronizar &raquo;
       </button>
     </div><!-- /.col-lg-4 -->
 
     <div class="col-lg-4">
-      <h2>Jogos</h2>
-      <p>Atualiza a base de dados com jogos. É necessário ter sincronizado Plataformas e Gêneros antes.</p>
+      <h2 style="color: #f3821c;">Jogos</h2>
+      <p style="color: #f3821c;">Atualiza a base de dados com jogos. É necessário ter sincronizado Plataformas e Gêneros antes.</p>
       <button style="cursor:pointer" class="btn btn-secondary btn-jogos">
         Sincronizar &raquo;
       </button>

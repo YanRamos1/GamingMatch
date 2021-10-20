@@ -1,6 +1,7 @@
 body {
     padding-bottom: 20px;
     background: #f0f2f5;
+    margin:0;
 }
 
 body a {
@@ -18,7 +19,7 @@ body a:hover {
 
 .bg-nav {
     z-index: 999;
-    background-color: #fff;
+    background-color: rgb(0, 0, 0);
 }
 
 .nav-dropdown-divider {
@@ -151,3 +152,93 @@ body a:hover {
 .very-small {
     font-size: 0.6em;
 }
+
+
+/* NOVA NAV BAR */ 
+.input-group{
+    width: 80%;
+    position: relative;
+    display: flex;
+}
+#btn-buscar{
+    background-color: var(--laranja);
+    border: 1px solid var(--laranja);
+}
+.rounded-circle {
+    border-radius: 50%!important;
+    border: 1px solid var(--laranja);
+}
+
+:root {
+    --laranja: #F3821C;
+  }
+  
+  body {
+    font-family: Lato, sans-serif;
+    margin: 0;
+    background-color: #232e33;
+  }
+  
+  #navbar {
+    width: 100vw;
+    background-color: #192024;
+    font-weight: bold;
+}
+  
+ul.menu-new {
+      list-style: none;
+      margin: 0;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 1em 0;
+    }
+  
+ul.menu-new li.menu-item a {
+      text-decoration: none;
+      color: white;
+      padding-right: 3em;
+      position: relative;
+      transition: all ease-in-out 250ms;
+    }
+ul.menu-new li.menu-item a::after {
+      content: "";
+      position: absolute;
+      display: block;
+      height: 0.4em;
+      width: 0%;
+      background-color: var(--laranja);
+      bottom: -1em;
+      transition: all ease-in-out 250ms;
+    }
+  
+ul.menu-new li.menu-item a:hover::after {
+      width: 60%;
+    }
+  
+ul.menu-new li.menu-item a:hover {
+      color: var(--laranja);
+    }
+  
+ul.menu-new li.menu-item:first-child {
+      margin-right: auto;
+      margin-left: 3em;
+}
+.dropdown-item.active, .dropdown-item:active{
+    background-color:var(--laranja) !important;
+}
+.dropdown-item:hover{
+    background-color:#f68f35;
+}
+.bordalaranja{
+    border:2px solid #f68f35;
+}
+.btn-laranja {
+    color: white;
+    border:1px solid #f68f35;
+}
+.btn-laranja:hover{
+    background-color:#f68f35;
+    border:1px solid #f68f35;
+}
+

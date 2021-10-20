@@ -52,15 +52,17 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                @if($user->isBlocked())
-                    <h1>[Bloqueado]</h1>
-                @else
-                    <h1>{{$user->name}}</h1>
-                @endif
+             
             </div>
         </div>
         <div class="p-2 p-sm-5 mb-4 jumbotron rounded-3">
             <div class="row">
+            @if($user->isBlocked())
+                    <h1>[Bloqueado]</h1>
+                @else
+                    <h1 style="text-align: center;
+    text-transform: uppercase;">{{$user->name}}</h1>
+                @endif
                 @if(!$user->hasBlocked(auth()->user()))
                     <div class="col-12 col-sm-4">
                         <div class="row">
@@ -87,7 +89,7 @@
                                             </p>
                                         </div>
                                     @endif
-                                    Followers:{{count($user->followers()->get())}}
+                                    Seguidores: {{count($user->followers()->get())}}
                                     @if (Auth::id() != $user->id)
                                         @if($user->isFollowedBy(auth()->user()))
                                             <button class="btn btn-info" type="button"
@@ -330,7 +332,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-sm-8">
-                        <h1 class="display-5">Avaliações</h1>
+                        <h1 class="display-10">Avaliações</h1>
                         <div>
                             @if(count($user->avaliacoes) == 0)
                                 <h5 class="mb-4">Esse usuário não fez nenhuma avaliação</h5>

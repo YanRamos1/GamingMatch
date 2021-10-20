@@ -224,7 +224,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h1>Editar Informações</h1>
+    <h1 style="color: #F3821C">Editar Informações</h1>
     </div>
   </div>
   <div class="p-2 p-sm-5 mb-4 jumbotron rounded-3">

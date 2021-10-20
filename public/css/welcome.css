@@ -121,3 +121,29 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
+@media only screen and (max-width: 48em) {
+    h3.logo-inicio{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+@media (min-width: 1281px) {
+h3.logo-inicio{
+    position: relative;
+    right: 10em;
+}
+.btn-login, .btn-facebook, .btn-google, .btn-register{
+    background-color: #f3821c;
+    border:1px solid #f3821c;
+}
+.btn-login:hover, .btn-facebook:hover, .btn-google:hover{
+    background-color: #f19c51;
+    border:1px solid black;
+}
+.btn-lg{
+    background-color: #f3821c;
+    border:1px solid #f3821c;   
+}
+}
+

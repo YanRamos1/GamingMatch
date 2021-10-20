@@ -40,7 +40,7 @@
 <div class="container">
   <div class="row">
     <div class="col-6 col-sm-6 col-md">
-      <h1>Jogos</h1>
+      <h1 style="color:#F3821C;">Jogos</h1>
     </div>
     <div class="col-6 col-sm-6 col-md-6 d-xs-block d-sm-block d-md-none">
       <div class="w-100 text-end">
@@ -66,7 +66,7 @@
       <div class="row">
         @foreach($games as $game)
         <div class="col-xl-3 col-md-4 col-sm-6">
-          <div class="card mb-4 shadow-sm">
+          <div style="border: 1px solid #f3821c;" class="card mb-4 shadow-sm">
             <a href="/games/{{$game->id}}" style="text-decoration: none;">
               <img src='{{ $game->image }}' class="card-img-top rounded" />
               <div class="card-body" style="padding-bottom: 0px !important;">
@@ -135,7 +135,7 @@
       </div>
       <div class="row mb-2">
         <div class="col d-flex justify-content-center justify-content-sm-end">
-          <a class="btn btn-outline-primary" href="/games/search">
+          <a class="btn btn-outline-primary btn-laranja" href="/games/search">
             Não encontrou o jogo que queria? Cadastre-o agora!
           </a>
         </div>
