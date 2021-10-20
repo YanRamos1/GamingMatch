@@ -20,15 +20,14 @@
                     </div>
                 </div>
               </form>
-                <li class="menu-item"><a href="#">Microsoft</a></a></li>
-                <li class="menu-item"><a href="#">Playstation 4</a></li>
-                <li class="menu-item"><a href="#">Android</a></li>
-                <li class="menu-item"><a href="#">Ios</a></li>
+                <li class="menu-item"><a href="#">Match</a></a></li>
+                <li class="menu-item"><a href="/news">Notícias</a></li>
+                <li class="menu-item"><a href="#">Comunidades</a></li>
                 <div class="dropdown text-end">
                     <a href="#" style="color: #F3821C;" class="d-block link-dark text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         @if(auth()->check())
-                        <img src="{{auth()->user()->avatar}}" alt="{{ URL::asset('image/default-user-image.png') }}"
+                        <img src="{{auth()->user()->avatar}}" alt="{{ url::asset('public/image/default-user-image.png') }}"
                             width="32" height="32" class="rounded-circle">
                         @else
                         <img src="{{ URL::asset('image/default-user-image.png') }}" width="32" height="32"
@@ -46,7 +45,7 @@
                                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
                                 </svg>
                                 Meu Perfil
-                            </a>  
+                            </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="/wishlist">

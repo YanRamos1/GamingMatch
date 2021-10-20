@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LikedGamesController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegistrationController;
@@ -40,6 +41,11 @@ Route::post('/games', [GamesController::class, 'store']);
 Route::get('/games/{game}', [GamesController::class, 'show'])->name('games.show');
 Route::get('/games/like/{id}', [UsersController::class, 'likegame'])->name('games.like');
 Route::get('/games/unlike/{id}', [UsersController::class, 'unlikegame'])->name('games.unlike');
+
+
+Route::get('/news', [NewsController::class, 'Index'])->name('news.index');
+
+
 
 
 

@@ -125,7 +125,7 @@
               </div>
               <div class="card-footer text-muted">
                 @foreach($game->plataformas as $plataforma)
-                <span class="mw-100 badge rounded-pill bg-primary d-inline-block text-truncate">{{ $plataforma->name }}</span>
+                <span class="mw-100 badge rounded-pill d-inline-block text-truncate" style="border: 1px solid black; background-color:#f3821c;">{{ $plataforma->name }}</span>
                 @endforeach
               </div>
             </a>
