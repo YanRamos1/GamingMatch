@@ -713,7 +713,7 @@ $(".btn-remover-avaliacao").click(function(event) {
 
                         @if(isset($gameigdb->similar_games))
                         <h3 class="text-center text-white">Jogos similares</h3>
-                        <div class="row similar-games">
+                        <div class="row">
                             @foreach($gameigdb->similar_games as $similar_games)
                             <div class="d-block" style="width: 12rem;">
                                 <div class="d-block fill">
