@@ -50,7 +50,7 @@
     @include('layouts.partials.navbar')
     @include('layouts.partials.flash')
 
-    <main class="pb-3">
+    <main class="pb-3" style="">
       @yield('content')
     </main>
   </div>

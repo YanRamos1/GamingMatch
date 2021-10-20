@@ -57,3 +57,6 @@
 .toast-container .toast-wrapper .toast .toast-header strong {
     padding-right: 20px
 }
+.toast-header.bg-success{
+    background-color:#F3821C !important;
+}

@@ -241,4 +241,10 @@ ul.menu-new li.menu-item:first-child {
     background-color:#f68f35;
     border:1px solid #f68f35;
 }
-
+.row.similar-games{
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: space-between;
+    justify-content: center;
+    align-items: center;
+}
