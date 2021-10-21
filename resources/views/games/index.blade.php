@@ -124,19 +124,12 @@
                                             </div>
                                         @endif
                                     </div>
-                                    <div class="card-footer text-muted">
+                                    <div class="card-footer text-muted"
+                                         style="background-color: rgba(243,130,28,0); border-top:1px solid #000000;">
                                         @foreach($game->plataformas as $plataforma)
                                             <span class="mw-100 badge rounded-pill d-inline-block text-truncate"
                                                   style="border: 1px solid black; background-color:#f3821c;">{{ $plataforma->name }}</span>
                                         @endforeach
-                                    </div>
-                                    <div class="card-footer text-muted">
-                                        @if(isset($game->genres))
-                                            @foreach($game->genres as $genres)
-                                                <span class="mw-100 badge rounded-pill d-inline-block text-truncate"
-                                                      style="border: 1px solid black; background-color:#f3821c;">{{ $genres->name }}</span>
-                                            @endforeach
-                                        @endif
                                     </div>
                                 </a>
                             </div>

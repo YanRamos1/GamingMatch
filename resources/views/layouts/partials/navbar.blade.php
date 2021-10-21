@@ -1,41 +1,48 @@
-<header class="p-1 mb-3 bg-nav navbar" style="border-bottom: #F3821C solid 1px;">
-    <div class="body-header">
-        <div id='navbar-new'>
-            <ul class="menu-new">
-                <li class="menu-item"><a href="/games">
-                        <img src="{{ URL::asset('image/logogif.gif') }}" width="56" height="56">
-                        <span style="font-size:28px;color:#F3821C;position: relative;top: 8px;">GameMatch</span>
-                    </a>
-                </li>
-                <form class="d-inline-flex" action="/games" method="get">
-                    <div class="input-group">
-                        <input class="form-control my-1" type="text" id="jogo" name="jogo" placeholder="Buscar Jogo"
-                               aria-label="Buscar Jogo" aria-describedby="btn-buscar">
-                        <div class="input-group-append">
-                            <button class="btn btn-success mr-2 my-1" type="submit" id="btn-buscar">
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="border-bottom: #F3821C solid 1px;">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+                    aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="/games"><img src="{{ URL::asset('image/logo01.png') }}" class="mx-2"></a>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item  mx-lg-5 mx-sm-auto mx-md-5 my-2">
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="text" id="jogo" name="jogo" placeholder="Buscar Jogo"
+                                   aria-label="Buscar Jogo" aria-describedby="btn-buscar">
+                            <button class=" btn btn-outline-light" type="submit" id="btn-buscar">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-search" viewBox="0 0 16 16">
                                     <path
                                         d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                                 </svg>
                             </button>
-                        </div>
-                    </div>
-                </form>
-                <div class="d-lg-inline-flex navbar">
-                    <li class="menu-item"><a href="#">Match</a></a></li>
-                    <li class="menu-item"><a href="/news">Notícias</a></li>
-                    <li class="menu-item"><a href="#">Comunidades</a></li>
-                </div>
-                <div class="dropdown text-end">
-                    <a href="#" style="color: #F3821C;" class="d-block link-dark text-decoration-none dropdown-toggle"
+                        </form>
+                    </li>
+                    <li class="nav-item mx-lg-3 mx-sm-auto mx-md-5 my-2 ">
+                        <a class="nav-link active text-white" aria-current="page" href="#">Match</a>
+                    </li>
+                    <li class="nav-item mx-lg-3 mx-sm-auto mx-md-5 my-2 ">
+                        <a class="nav-link active text-white" href="/news">Notícias</a>
+                    </li>
+                    <li class="nav-item mx-lg-3 mx-sm-auto mx-md-5 my-2 ">
+                        <a class="nav-link active text-white"  href="#">Comunidades</a>
+                    </li>
+
+
+                </ul>
+                <div class="dropstart text-end me-6 mb-2 mb-lg-0">
+                    <a href="#" style="color: #F3821C;" class=" link-dark text-decoration-none dropdown-toggle"
                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         @if(auth()->check())
                             <img src="{{auth()->user()->avatar}}"
-                                 alt="{{ url::asset('public/image/default-user-image.png') }}"
-                                 width="32" height="32" class="rounded-circle">
+                                 alt="{{ url::asset('public/image/default-user-image.png') }}" width="50" height="50"
+                                 class="rounded-circle">
                         @else
-                            <img src="{{ URL::asset('image/default-user-image.png') }}" width="32" height="32"
+                            <img src="{{ URL::asset('image/default-user-image.png') }}" width="50" height="50"
                                  class="rounded-circle">
                         @endif
                     </a>
@@ -176,7 +183,7 @@
                         @endif
                     </ul>
                 </div>
-            </ul>
+            </div>
         </div>
-    </div>
+    </nav>
 </header>

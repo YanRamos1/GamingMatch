@@ -110,19 +110,19 @@
                         </div>
 
                         <div class="form-group">
-                            <button style="cursor:pointer" class="btn btn-social btn-facebook text-black shadow m-1">Entrar</button>
+                            <button style="cursor:pointer;background-color:#f3821c;" class="btn btn-login text-black shadow m-1">Entrar</button>
                         </div>
                     </form>
-                    <a class="btn github btn-social btn-facebook text-black shadow m-1"
+                    <a class="btn text-black shadow m-1" style="background-color:#f3821c; cursor:pointer;"
                        href="{{ route('social.login',['provider'=>'github']) }}"><span class="fa fa-github"></span>
                         Login Github
                     </a>
-                    <a class="btn facebook btn-social btn-facebook text-black shadow m-1"
+                    <a class="btn text-black shadow m-1" style="background-color:#f3821c; cursor:pointer;"
                        href="{{ route('social.login',['provider'=>'facebook']) }}"><span
                             class="fa fa-facebook"></span>
                         Login Facebook
                     </a>
-                    <a class="btn google btn-social btn-facebook text-black shadow m-1"
+                    <a class="btn text-black shadow m-1" style="background-color:#f3821c; cursor:pointer;"
                        href="{{ route('social.login',['provider'=>'google']) }}"><span class="fa fa-google"></span>
                         Login Google
                     </a>
@@ -167,7 +167,7 @@
 
         </main>
 
-        <footer class="text-center mastfoot mt-auto">
+        <footer class="text-center mastfoot mt-auto transparent">
             <div class="inner">
             </div>
         </footer>
