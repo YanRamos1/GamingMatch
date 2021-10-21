@@ -294,7 +294,9 @@
                                                 <div style="display: none">{{$sender_id = $request->sender->id}}</div>
                                                 <div class="card d-inline-flex" style="width:16rem;">
                                                     <a href="/users/{{$sender_id}}"
-                                                       class="text-center center">{{$request->sender->name}}</a>
+                                                       class="text-center center"><img
+                                                            src="{{$request->sender->avatar}}"
+                                                            alt="{{ URL::asset('image/default-user-image.png') }}"></a>
 
                                                     <button class="btn text-black shadow m-1" type="button"
                                                             style="background-color:#f3821c;"
@@ -313,13 +315,16 @@
                                 </div>
                                 @if($user->getAcceptedFriendships() != null)
                                     <h5 class="mb-4">Amigos</h5>
-                                    <div class="row">
+                                    <div class="row overflow-auto" style="height: 50vh">
                                         @foreach($user->getAcceptedFriendships() as $friends)
                                             <div class="mb-3">
                                                 @if($friends->sender->name != $user->name)
                                                     <div class="card d-inline-flex" style="width:16rem;">
-                                                        <a href="/users/{{$friends->sender->id}}"
-                                                           class="text-center center">{{$friends->sender->name}}</a>
+                                                        <a href="/users/{{$friends->sender->id}}">
+                                                            <h5 class="text-center">{{$friends->sender->name}}</h5>
+                                                            <img style="width:16rem" src="{{$friends->sender->avatar}}"
+                                                                 alt="{{ URL::asset('image/default-user-image.png') }}">
+                                                        </a>
                                                         <div
                                                             style="display: none">{{$friend_id = $friends->sender->id}}</div>
                                                         <button class="btn text-black shadow m-1" type="button"
@@ -332,10 +337,16 @@
 
                                                 @if($friends->sender->name == $user->name)
                                                     <div class="card" style="width:16rem;">
+                                                        <h5 class="text-center">{{$friend_id = $friends->recipient->name}}</h5>
+
                                                         <div style="display:
-                                                            none">{{$friend_id = $friends->recipient->name}}</div>
+                                                            none">{{$friend_id = $friends->recipient->avatar}}>
+                                                        </div>
                                                         <a href="/users/{{$friend_id}}"
-                                                           class="text-center center">{{$friend_id}}</a>
+                                                           class="text-center center"><img
+                                                                src="{{$friends->recipient->avatar}}"
+                                                                alt="{{ url::asset('public/image/default-user-image.png') }}">
+                                                        </a>
                                                         <button class="btn text-black shadow m-1" type="button"
                                                                 style="background-color:#f3821c;"
                                                                 onclick="window.location='{{ url("users/delete/$friend_id") }}'">
@@ -351,7 +362,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-12 col-sm-8">
+                    <div class="container-fluid">
                         <h1 class="display-10">Avaliações</h1>
                         <div>
                             @if(count($user->avaliacoes) == 0)
