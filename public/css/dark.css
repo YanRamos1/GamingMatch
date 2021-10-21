@@ -13,6 +13,10 @@ body a:hover,
 .dropdown-menu {
     background-color: #242526;
 }
+.botao{
+    background-color: rgba(12, 11, 11, 0.67);
+    color: #f3821c;
+}
 
 .dropdown-divider {
     border-top: 1px solid #18191a;

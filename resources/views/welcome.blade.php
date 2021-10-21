@@ -42,7 +42,7 @@
 @include('layouts.partials.flash')
 <header>
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <ol class="carousel-indicators">
+        <ol class="carousel-indicators" style="display: none">
             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
@@ -59,8 +59,8 @@
 </header>
 
 <div class="w-100 h-100"
-     style="position: absolute; top: 0; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));">
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+     style="position: absolute; top: 0; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); height: 100vh; width: 100vh;">
+    <div class="cover d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="masthead">
             <div class="inner">
                 <a href="/" style="text-decoration:none !important;">
@@ -83,7 +83,7 @@
             </div>
         </header>
 
-        <main role="main" class="text-center inner cover">
+        <main role="main" class="text-center inner cover container mx-auto mb-3" style="height:20rem">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h1 class="cover-heading">GameMatch</h1>
@@ -110,7 +110,9 @@
                         </div>
 
                         <div class="form-group">
-                            <button style="cursor:pointer;background-color:#f3821c;" class="btn btn-login text-black shadow m-1">Entrar</button>
+                            <button style="cursor:pointer;background-color:#f3821c;"
+                                    class="btn btn-login text-black shadow m-1">Entrar
+                            </button>
                         </div>
                     </form>
                     <a class="btn text-black shadow m-1" style="background-color:#f3821c; cursor:pointer;"
@@ -163,10 +165,21 @@
                     </form>
                 </div>
             </div>
-
-
         </main>
+        <div class="container ">
+            <div class="row">
+                @foreach($games as $game)
+                    <div class="col">
+                        <div style="border: 1px solid #f3821c;" class="shadow-sm">
+                            <a href="/games/{{$game->id}}" style="text-decoration: none;">
+                                <img src='{{ $game->image }}' class="rounded img-fluid shadow-lg" alt=""/>
 
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
         <footer class="text-center mastfoot mt-auto transparent">
             <div class="inner">
             </div>

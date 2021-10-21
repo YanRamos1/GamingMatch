@@ -22,19 +22,17 @@
                             </button>
                         </form>
                     </li>
-                    <li class="nav-item mx-lg-3 mx-sm-auto mx-md-5 my-2 ">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Match</a>
+                    <li class="nav-item mx-auto mx-lg-3 mx-sm-auto mx-md-5 my-2">
+                        <a class="nav-link" style="color: #F3821CFF;" aria-current="page" href="#">Match</a>
                     </li>
-                    <li class="nav-item mx-lg-3 mx-sm-auto mx-md-5 my-2 ">
-                        <a class="nav-link active text-white" href="/news">Notícias</a>
+                    <li class="nav-item mx-auto mx-lg-3 mx-sm-auto mx-md-5 my-2 ">
+                        <a class="nav-link" style="color: #F3821CFF;" href="/news">Notícias</a>
                     </li>
-                    <li class="nav-item mx-lg-3 mx-sm-auto mx-md-5 my-2 ">
-                        <a class="nav-link active text-white"  href="#">Comunidades</a>
+                    <li class="nav-item mx-auto mx-lg-3 mx-sm-auto mx-md-5 my-2">
+                        <a class="nav-link"  style="color: #F3821CFF;" href="#">Comunidades</a>
                     </li>
-
-
                 </ul>
-                <div class="dropstart text-end me-6 mb-2 mb-lg-0">
+                <div class="dropdown d-flex justify-content-center ml-0">
                     <a href="#" style="color: #F3821C;" class=" link-dark text-decoration-none dropdown-toggle"
                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         @if(auth()->check())
@@ -46,7 +44,7 @@
                                  class="rounded-circle">
                         @endif
                     </a>
-                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <ul class="dropdown-menu text-small container" aria-labelledby="dropdownUser1">
                         @if(auth()->check())
                             <li>
                                 <a class="dropdown-item" href="/users/{{auth()->user()->id}}">

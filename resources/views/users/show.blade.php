@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title', $user->name)
-
+<script src="https://kit.fontawesome.com/f7a428fdfe.js" crossorigin="anonymous"></script>
 @push('scripts')
     <script xmlns:wire="http://www.w3.org/1999/xhtml">
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -50,13 +50,8 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-
-            </div>
-        </div>
-        <div class="p-2 p-sm-5 mb-4 jumbotron rounded-3">
-            <div class="row">
+        <div class="p-2 p-sm-5 mb-4 jumbotron rounded-3 container ">
+            <div class="container">
                 @if($user->isBlocked())
                     <h1>[Bloqueado]</h1>
                 @else
@@ -66,7 +61,7 @@
                 @if(!$user->hasBlocked(auth()->user()))
                     <div class="col-12 col-sm-4">
                         <div class="row">
-                            <div style="display: inline-block;">
+                            <div class="d-flex justify-content-center" style="display: inline-block;">
                                 @if($user->isBlocked())
                                     <img src="{{ URL::asset('image/default-user-image.png') }}"
                                          class="card-img-top col-lg-12 rounded-pill">
@@ -90,35 +85,40 @@
                                             </p>
                                         </div>
                                     @endif
-                                    Seguidores: {{count($user->followers()->get())}}
-                                    @if (Auth::id() != $user->id)
-                                        @if($user->isFollowedBy(auth()->user()))
-                                            <button class="btn btn-info" type="button"
-                                                    onclick="window.location='{{ url("/users/unfollow/$user->id") }}'">
-                                                <i class="fa fa-user-plus mr-2"></i>
-                                                <span id="friendship-status-">Unfollow</span>
-                                            </button>
-                                        @elseif(!$user->isFollowedBy(auth()->user()))
-                                            <button class="btn btn-info" type="button"
-                                                    onclick="window.location='{{ url("/users/follow/$user->id") }}'">
-                                                <i class="fa fa-user-plus mr-2"></i>
-                                                <span id="friendship-status-">Follow</span>
-                                            </button>
+                                    <div class="row mb-3 d-flex">
+                                        <p>Seguidores: {{count($user->followers()->get())}}</p>
+                                        <p>Avaliações:{{count($user->avaliacoes)}}</p>
+                                    </div>
+                                    <div>
+                                        @if (Auth::id() != $user->id)
+                                            @if($user->isFollowedBy(auth()->user()))
+                                                <button class="btn" style="color: #F3821C;" type="button"
+                                                        onclick="window.location='{{ url("/users/unfollow/$user->id") }}'">
+                                                    <i class="fas fa-user-times"></i>
+                                                    <span id="friendship-status-">Unfollow</span>
+                                                </button>
+                                            @elseif(!$user->isFollowedBy(auth()->user()))
+                                                <button class="btn" style="color: #F3821C;" type="button"
+                                                        onclick="window.location='{{ url("/users/follow/$user->id") }}'">
+                                                    <i class="fa fa-user-plus mr-2"></i>
+                                                    <span id="friendship-status-">Follow</span>
+                                                </button>
+                                            @endif
+                                            @if(!auth()->user()->hasBlocked($user))
+                                                    <button class="btn" style="color: #F3821C;" type="button"
+                                                        onclick="window.location='{{ url("/users/block/$user->id") }}'">
+                                                    <i class="fas fa-user-lock"></i>
+                                                    <span id="friendship-status-">Bloquear</span>
+                                                </button>
+                                            @elseif(auth()->user()->hasBlocked($user))
+                                                    <button class="btn" style="color: #F3821C;" type="button"
+                                                        onclick="window.location='{{ url("/users/unblock/$user->id") }}'">
+                                                    <i class="fas fa-unlock"></i>
+                                                    <span id="friendship-status-">Unblock</span>
+                                                </button>
+                                            @endif
                                         @endif
-                                        @if(!auth()->user()->hasBlocked($user))
-                                            <button class="btn btn-info" type="button"
-                                                    onclick="window.location='{{ url("/users/block/$user->id") }}'">
-                                                <i class="fa fa-user-plus mr-2"></i>
-                                                <span id="friendship-status-">block</span>
-                                            </button>
-                                        @elseif(auth()->user()->hasBlocked($user))
-                                            <button class="btn btn-info" type="button"
-                                                    onclick="window.location='{{ url("/users/unblock/$user->id") }}'">
-                                                <i class="fa fa-user-plus mr-2"></i>
-                                                <span id="friendship-status-">Unblock</span>
-                                            </button>
-                                        @endif
-                                    @endif
+                                    </div>
 
 
                                     @if(!is_null($user->instagram)
@@ -239,7 +239,7 @@
                                 @if(isset($friendshipsReceived))
                                     @if(($friendshipsReceived->status == 'pending'))
                                         <div>
-                                            <button class="btn btn-info" type="button"
+                                            <button class="btn" style="color: #F3821C;" type="button"
                                                     onclick="window.location='{{ url("users/accept/$user->id") }}'">
                                                 <i class="fa fa-user-plus mr-2"></i>
                                                 <span id="friendship-status-">
@@ -252,7 +252,7 @@
                                         <p>Já são amigos</p>
                                     @endif
                                 @elseif($friendshipSend==null)
-                                    <button class="btn btn-info" type="button"
+                                    <button class="btn" style="color: #F3821C;" type="button"
                                             onclick="window.location='{{ url("users/add/$user->id") }}'">
                                         <i class="fa fa-user-plus mr-2"></i>
                                         <span id="friendship-status">
@@ -262,7 +262,7 @@
                                 @endif
                                 @if(isset($friendshipsReceived))
                                     @if($friendshipsReceived->status == 'denied' and $friendshipSend == null)
-                                        <button class="btn btn-info" type="button"
+                                        <button class="btn" style="color: #F3821C;" type="button"
                                                 onclick="window.location='{{ url("users/add/$user->id") }}'">
                                             <i class="fa fa-user-plus mr-2"></i>
                                             <span id="friendship-status-">Enviar pedido de amizade</span>
