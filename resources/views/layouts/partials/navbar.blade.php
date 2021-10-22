@@ -1,11 +1,15 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light" style="border-bottom: #F3821C solid 1px;">
+    <nav class="navbar navbar-expand-lg navbar-light rounded" style="">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
                     aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a href="/games"><img src="{{ URL::asset('image/logo01.png') }}" class="mx-2"></a>
+            @if($_COOKIE['theme'] == 'dark')
+                <a href="/games"><img src="{{ URL::asset('image/logo02.png') }}" class="mx-2" style="height:54px;" alt=""></a>
+            @elseif($_COOKIE['theme'] == 'light')
+                <a href="/games"><img src="{{ URL::asset('image/logo01.png') }}" class="mx-2" style="height:54px;" alt=""></a>
+                @endif
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">

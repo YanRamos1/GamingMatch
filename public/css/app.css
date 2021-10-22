@@ -1,12 +1,18 @@
 body {
     padding-bottom: 20px;
-    background: #f0f2f5;
+    background: #ffffff;
     margin:0;
 }
 .botao{
-    background-color: rgb(255, 255, 255);
-    color: #007df6;
+    background-color: rgb(243, 130, 28);
+    color: #ffffff;
 }
+.botao:hover{
+    background-color: rgb(255, 255, 255);
+    color: #f3821c;
+}
+
+
 body a {
     color: #000051;
 }
@@ -179,7 +185,7 @@ body a:hover {
   body {
     font-family: Lato, sans-serif;
     margin: 0;
-      background-color: #d3dbe2;
+      background-color: #ffffff;
   }
 
   #navbar {
@@ -237,11 +243,13 @@ ul.menu-new li.menu-item:first-child {
     border:2px solid #f68f35;
 }
 .btn-laranja {
-    color: white;
+    background-color:#f68f35;
     border:1px solid #f68f35;
+    color: #ffffff;
 }
 .btn-laranja:hover{
-    background-color:#f68f35;
+    color: #f68f35;
+    background-color: #ffffff;
     border:1px solid #f68f35;
 }
 .row.similar-games{
@@ -250,4 +258,19 @@ ul.menu-new li.menu-item:first-child {
     align-content: space-between;
     justify-content: center;
     align-items: center;
+}
+
+.page-item.active .page-link{
+    background-color: #f68f35 !important;
+    color: #fff !important;
+}
+.page-link{
+    background-color: #f68f35 !important;
+    color: black !important;
+
+}
+.page-link:hover{
+    background-color: white !important;
+    color: #f3821c !important;
+
 }

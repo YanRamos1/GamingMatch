@@ -10,7 +10,7 @@
                     <span class="page-link" aria-hidden="true">&lsaquo;</span>
                 </li>
             @else
-                <li class="page-item">  
+                <li class="page-item">
                     <a class="page-link" href="{{ $paginator->toArray()['first_page_url'] }}" rel="first" aria-label="@lang('pagination.first')">&laquo;</a>
                 </li>
                 <li class="page-item">
@@ -42,7 +42,7 @@
                 <li class="page-item">
                     <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
                 </li>
-                <li class="page-item">  
+                <li class="page-item">
                     <a class="page-link" href="{{ $paginator->toArray()['last_page_url'] }}" rel="last" aria-label="@lang('pagination.last')">&raquo;</a>
                 </li>
             @else
@@ -64,7 +64,7 @@
                     <span class="page-link" aria-hidden="true">&lsaquo;</span>
                 </li>
             @else
-                <li class="page-item">  
+                <li class="page-item">
                     <a class="page-link" href="{{ $paginator->toArray()['first_page_url'] }}" rel="first" aria-label="@lang('pagination.first')">&laquo;</a>
                 </li>
                 <li class="page-item">
@@ -96,7 +96,7 @@
                 <li class="page-item">
                     <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
                 </li>
-                <li class="page-item">  
+                <li class="page-item">
                     <a class="page-link" href="{{ $paginator->toArray()['last_page_url'] }}" rel="last" aria-label="@lang('pagination.last')">&raquo;</a>
                 </li>
             @else

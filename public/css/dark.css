@@ -21,6 +21,21 @@ body a:hover,
 .dropdown-divider {
     border-top: 1px solid #18191a;
 }
+.page-item.active .page-link{
+    background-color: black !important;
+}
+
+.bordalaranja{
+    border:2px solid #f68f35;
+}
+.btn-laranja {
+    color: black;
+    border:1px solid #f68f35;
+}
+.btn-laranja:hover{
+    background-color:#f68f35;
+    border:1px solid #f68f35;
+}
 
 .bg-filters,
 .bg-filters:hover {

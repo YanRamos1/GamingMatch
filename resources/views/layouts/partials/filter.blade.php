@@ -1,6 +1,7 @@
+
 <div class="row">
 
-    <div class="bordalaranja bg-filters shadow-sm mb-4 px-0">
+    <div class="bordalaranja  bg-filters shadow-sm mb-4 px-0">
         <button class="text-start btn bg-filters dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSort" aria-expanded="false" aria-controls="collapseSort">
             <span class="small"> Ordenação:
                 @if(array_key_exists('order', $_GET))

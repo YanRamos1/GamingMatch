@@ -37,7 +37,14 @@
     {{--Favicon--}}
     <link rel="shortcut icon" href="{{ URL::asset('image/favicon.ico') }}" type="image/x-icon"/>
 </head>
-
+<style>
+    .nav-link.active{
+        color: #f3821c;
+    }
+    .nav-link{
+        color: #fff
+    }
+</style>
 <body>
 @include('layouts.partials.flash')
 <header>
@@ -65,14 +72,11 @@
             <div class="inner">
                 <a href="/" style="text-decoration:none !important;">
                     <h3 class="masthead-brand logo-inicio">
-                        <img src="{{ URL::asset('image/logogif.gif') }}" width="56" height="56" alt="">
-                        <span
-                            style="position:relative; font-size:28px; top:5px; text-decoration:none !important;">GAME
-                                MATCH</span>
+
                     </h3>
                 </a>
                 <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab"
+                    <a class="nav-link active"  id="home-tab" data-bs-toggle="tab" href="#home" role="tab"
                        aria-controls="home" aria-selected="true">Home</a>
                     <a class="nav-link" id="login-tab" data-bs-toggle="tab" href="#login" role="tab"
                        aria-controls="login" aria-selected="false">Entrar</a>
@@ -86,11 +90,11 @@
         <main role="main" class="text-center inner cover container mx-auto mb-3" style="height:20rem">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h1 class="cover-heading">GameMatch</h1>
-                    <p class="lead">Facilitando seu entretenimento no mundo dos jogos!</p>
-                    <p class="lead">
-                        <a href="https://discord.com/" class="btn btn-lg btn-secondary">Saiba mais</a>
-                    </p>
+
+                    <img src="{{ URL::asset('image/logogif.gif') }}" width="56" height="56" alt="">
+                    <span
+                        style="position:relative; font-size:28px; top:5px; text-decoration:none !important;">GAME
+                                MATCH</span>
                 </div>
 
                 <div class="tab-pane fade texto-left" id="login" role="tabpanel" aria-labelledby="login-tab">

@@ -18,7 +18,7 @@ class SessionController extends Controller
 
     public function create()
     {
-        $games = Game::select(['*'])->orderBy('rating','desc')->join('games_ratings', 'games_ratings.game_id', '=', 'games.id')->limit(12)->get();
+        $games = Game::select(['*'])->orderBy('rating','desc')->join('games_ratings', 'games_ratings.game_id', '=', 'games.id')->limit(6)->get();
         return view('welcome', compact('games'));
 
     }

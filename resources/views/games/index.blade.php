@@ -39,7 +39,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-6 col-sm-6 col-md">
+            <div class="col-6 col-sm-6 col-md mt-2 mb-2">
                 <h1 style="color:#F3821C;">Jogos</h1>
             </div>
             <div class="col-6 col-sm-6 col-md-6 d-xs-block d-sm-block d-md-none">
@@ -53,11 +53,7 @@
             <div class="collapse" id="collapseFilters">
                 @include('layouts.partials.filter')
             </div>
-            <div class="col-12 col-sm-12 col-md-6">
-                <div class="d-flex justify-content-center justify-content-md-end">
-                    {!! $games->links() !!}
-                </div>
-            </div>
+
         </div>
         <div class="row">
             <div class="col-md-3 col-xl-2 d-none d-sm-none d-md-block">
@@ -138,7 +134,7 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col d-flex justify-content-center justify-content-sm-end">
-                        <a class="btn btn-outline-primary btn-laranja" href="/games/search">
+                        <a class="btn btn-laranja" href="/games/search">
                             Não encontrou o jogo que queria? Cadastre-o agora!
                         </a>
                     </div>
