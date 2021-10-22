@@ -60,19 +60,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 col-xl-2 d-none d-sm-none d-md-block" style="width: 300px;
-                                                             position: fixed;
-                                                             z-index: 1;
-                                                             top: 5rem;
-                                                             left: 10px;
-                                                             background: #eee;
-                                                             overflow-x: hidden;">
+            <div class="col-md-3 col-xl-2 d-none d-sm-none d-md-block">
                 @include('layouts.partials.filter')
             </div>
             <div class="col-md-9 col-xl-10">
                 <div class="row">
                     @foreach($games as $game)
-                        <div class="col-xl-3 col-md-5 col-sm-6">
+                        <div class="col-xl-3 col-md-4 col-sm-6">
                             <div style="border: 1px solid #f3821c;" class="card mb-4 shadow-sm">
                                 <a href="/games/{{$game->id}}" style="text-decoration: none;">
                                     <img src='{{ $game->image }}' class="card-img-top rounded shadow-lg"/>

@@ -65,7 +65,7 @@
             <div class="inner">
                 <a href="/" style="text-decoration:none !important;">
                     <h3 class="masthead-brand logo-inicio">
-                        <img src="{{ URL::asset('image/logogif.gif') }}" width="56" height="56">
+                        <img src="{{ URL::asset('image/logogif.gif') }}" width="56" height="56" alt="">
                         <span
                             style="position:relative; font-size:28px; top:5px; text-decoration:none !important;">GAME
                                 MATCH</span>
@@ -166,7 +166,7 @@
                 </div>
             </div>
         </main>
-        <div class="container ">
+        <div class="container">
             <div class="row">
                 @foreach($games as $game)
                     <div class="col">
