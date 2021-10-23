@@ -88,6 +88,7 @@
                                     <div class="row mb-3 d-flex">
                                         <p>Seguidores: {{count($user->followers()->get())}}</p>
                                         <p>Avaliações:{{count($user->avaliacoes)}}</p>
+                                        <p>Amigos:{{count($user->getAcceptedFriendships())}}</p>
                                     </div>
                                     <div>
                                         @if (Auth::id() != $user->id)
