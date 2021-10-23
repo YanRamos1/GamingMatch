@@ -37,12 +37,19 @@
     {{--Favicon--}}
     <link rel="shortcut icon" href="{{ URL::asset('image/favicon.ico') }}" type="image/x-icon"/>
 </head>
-
+<style>
+    .nav-link.active{
+        color: #f3821c;
+    }
+    .nav-link{
+        color: #fff
+    }
+</style>
 <body>
 @include('layouts.partials.flash')
 <header>
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <ol class="carousel-indicators">
+        <ol class="carousel-indicators" style="display: none">
             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
@@ -59,20 +66,13 @@
 </header>
 
 <div class="w-100 h-100"
-     style="position: absolute; top: 0; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));">
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+     style="position: absolute; top: 0; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); height: 100vh; width: 100vh;">
+    <div class="cover d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="masthead">
             <div class="inner">
-                <a href="/" style="text-decoration:none !important;">
-                    <h3 class="masthead-brand logo-inicio">
-                        <img src="{{ URL::asset('image/logogif.gif') }}" width="56" height="56">
-                        <span
-                            style="position:relative; font-size:28px; top:5px; text-decoration:none !important;">GAME
-                                MATCH</span>
-                    </h3>
-                </a>
+
                 <nav class="nav nav-masthead justify-content-center">
-                    <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab"
+                    <a class="nav-link active"  id="home-tab" data-bs-toggle="tab" href="#home" role="tab"
                        aria-controls="home" aria-selected="true">Home</a>
                     <a class="nav-link" id="login-tab" data-bs-toggle="tab" href="#login" role="tab"
                        aria-controls="login" aria-selected="false">Entrar</a>
@@ -83,14 +83,14 @@
             </div>
         </header>
 
-        <main role="main" class="text-center inner cover">
+        <main role="main" class="text-center inner cover container mx-auto mb-3" style="height:20rem">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h1 class="cover-heading">GameMatch</h1>
-                    <p class="lead">Facilitando seu entretenimento no mundo dos jogos!</p>
-                    <p class="lead">
-                        <a href="https://discord.com/" class="btn btn-lg btn-secondary">Saiba mais</a>
-                    </p>
+
+                    <img src="{{ URL::asset('image/logogif.gif') }}" width="56" height="56" alt="">
+                    <span
+                        style="position:relative; font-size:28px; top:5px; font-weight:bold; text-decoration:none !important;">GAME
+                                MATCH</span>
                 </div>
 
                 <div class="tab-pane fade texto-left" id="login" role="tabpanel" aria-labelledby="login-tab">
@@ -110,19 +110,21 @@
                         </div>
 
                         <div class="form-group">
-                            <button style="cursor:pointer" class="btn btn-social btn-facebook text-black shadow m-1">Entrar</button>
+                            <button style="cursor:pointer;background-color:#f3821c;"
+                                    class="btn btn-login text-black shadow m-1">Entrar
+                            </button>
                         </div>
                     </form>
-                    <a class="btn github btn-social btn-facebook text-black shadow m-1"
+                    <a class="btn text-black shadow m-1" style="background-color:#f3821c; cursor:pointer;"
                        href="{{ route('social.login',['provider'=>'github']) }}"><span class="fa fa-github"></span>
                         Login Github
                     </a>
-                    <a class="btn facebook btn-social btn-facebook text-black shadow m-1"
+                    <a class="btn text-black shadow m-1" style="background-color:#f3821c; cursor:pointer;"
                        href="{{ route('social.login',['provider'=>'facebook']) }}"><span
                             class="fa fa-facebook"></span>
                         Login Facebook
                     </a>
-                    <a class="btn google btn-social btn-facebook text-black shadow m-1"
+                    <a class="btn text-black shadow m-1" style="background-color:#f3821c; cursor:pointer;"
                        href="{{ route('social.login',['provider'=>'google']) }}"><span class="fa fa-google"></span>
                         Login Google
                     </a>
@@ -163,11 +165,22 @@
                     </form>
                 </div>
             </div>
-
-
         </main>
+        <div class="container">
+            <div class="row">
+                @foreach($games as $game)
+                    <div class="col">
+                        <div style="border: 1px solid #f3821c;" class="shadow-sm">
+                            <a href="/games/{{$game->id}}" style="text-decoration: none;">
+                                <img src='{{ $game->image }}' class="rounded img-fluid shadow-lg" alt=""/>
 
-        <footer class="text-center mastfoot mt-auto">
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        <footer class="text-center mastfoot mt-auto transparent">
             <div class="inner">
             </div>
         </footer>

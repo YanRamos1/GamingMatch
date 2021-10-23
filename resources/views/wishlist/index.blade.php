@@ -42,17 +42,6 @@
     <div class="col-6 col-sm-6 col-md">
       <h1>Lista de Desejos</h1>
     </div>
-    <div class="col-12 col-sm-12 col-md-6">
-      <div class="col d-flex justify-content-center justify-content-sm-end">
-          @if(count($wishlist) >=5)
-              <div class="row">
-
-                      {!! $wishlist->links() !!}
-
-              </div>
-          @endif
-      </div>
-    </div>
   </div>
   <div class="row">
     @foreach($wishlist as $wish)
@@ -125,13 +114,6 @@
     @endforeach
     <div class="row">
       <div class="col d-flex justify-content-center justify-content-sm-end">
-          @if(isset($likedgames))
-              <div class="row">
-                  <div class="col d-flex justify-content-center justify-content-sm-end">
-                      {!! $likedgames->links() !!}
-                  </div>
-              </div>
-          @endif
       </div>
     </div>
   </div>

@@ -57,11 +57,11 @@
                             <div class="card mb-4 shadow-sm">
                                 <a href="/users/{{$user->id}}" style="text-decoration: none;">
                                     @if(is_null($user->avatar))
-                                        <img src="{{ URL::asset('image/default-user-image.png') }}"
+                                        <img src="{{ URL::asset('https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png') }}"
                                              class="card-img-top">
                                     @else
                                         <img src="{{$user->avatar}}"
-                                             alt="{{ URL::asset('image/default-user-image.png') }}"
+                                             alt="{{ URL::asset('https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png') }}"
                                              class="card-img-top">
                                     @endif
                                     <div class="card-body" style="padding-bottom: 0px !important;">

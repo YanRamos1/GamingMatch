@@ -1,8 +1,17 @@
 body {
     padding-bottom: 20px;
-    background: #f0f2f5;
+    background: #ffffff;
     margin:0;
 }
+.botao{
+    background-color: rgb(243, 130, 28);
+    color: #ffffff;
+}
+.botao:hover{
+    background-color: rgb(255, 255, 255);
+    color: #f3821c;
+}
+
 
 body a {
     color: #000051;
@@ -154,7 +163,7 @@ body a:hover {
 }
 
 
-/* NOVA NAV BAR */ 
+/* NOVA NAV BAR */
 .input-group{
     width: 80%;
     position: relative;
@@ -172,19 +181,19 @@ body a:hover {
 :root {
     --laranja: #F3821C;
   }
-  
+
   body {
     font-family: Lato, sans-serif;
     margin: 0;
-    background-color: #232e33;
+      background-color: #ffffff;
   }
-  
+
   #navbar {
     width: 100vw;
-    background-color: #192024;
+    background-color: #ffffff;
     font-weight: bold;
 }
-  
+
 ul.menu-new {
       list-style: none;
       margin: 0;
@@ -193,7 +202,7 @@ ul.menu-new {
       align-items: center;
       padding: 1em 0;
     }
-  
+
 ul.menu-new li.menu-item a {
       text-decoration: none;
       color: white;
@@ -211,15 +220,15 @@ ul.menu-new li.menu-item a::after {
       bottom: -1em;
       transition: all ease-in-out 250ms;
     }
-  
+
 ul.menu-new li.menu-item a:hover::after {
       width: 60%;
     }
-  
+
 ul.menu-new li.menu-item a:hover {
       color: var(--laranja);
     }
-  
+
 ul.menu-new li.menu-item:first-child {
       margin-right: auto;
       margin-left: 3em;
@@ -234,11 +243,13 @@ ul.menu-new li.menu-item:first-child {
     border:2px solid #f68f35;
 }
 .btn-laranja {
-    color: white;
+    background-color:#f68f35;
     border:1px solid #f68f35;
+    color: #ffffff;
 }
 .btn-laranja:hover{
-    background-color:#f68f35;
+    color: #f68f35;
+    background-color: #ffffff;
     border:1px solid #f68f35;
 }
 .row.similar-games{
@@ -247,4 +258,42 @@ ul.menu-new li.menu-item:first-child {
     align-content: space-between;
     justify-content: center;
     align-items: center;
+}
+
+.page-item.active .page-link{
+    background-color: #f68f35 !important;
+    color: #fff !important;
+}
+.page-link{
+    background-color: #f68f35 !important;
+    color: black !important;
+
+}
+.page-link:hover{
+    background-color: white !important;
+    color: #f3821c !important;
+
+}
+.nav-link{
+    border-radius: 50px;
+}
+.nav-link:hover{
+    color:rgb(0, 0, 0) !important;
+    background:#f3821c;
+    border-radius: 50px;
+
+}
+@media only screen and (max-width: 48em) {
+.dropdown-menu[data-bs-popper] {
+    left: 0px;
+    margin-left: 0px !important;
+}
+
+}
+.dropdown-menu[data-bs-popper] {
+    left: 1px;
+    margin-left: -100px;
+}
+.borda img{
+    border:1px solid var(--laranja);
 }

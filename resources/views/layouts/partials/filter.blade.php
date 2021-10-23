@@ -1,6 +1,7 @@
+
 <div class="row">
 
-    <div class="card bordalaranja bg-filters shadow-sm mb-4 px-0">
+    <div class="bordalaranja  bg-filters shadow-sm mb-4 px-0">
         <button class="text-start btn bg-filters dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSort" aria-expanded="false" aria-controls="collapseSort">
             <span class="small"> Ordenação:
                 @if(array_key_exists('order', $_GET))
@@ -93,19 +94,4 @@
     </div>
     @endif
 
-    @if(!array_key_exists('ano', $_GET))
-    <div class="w-100 bordalaranja card mb-4">
-        <div class="card-header bg-filters">
-            <span class="small">Ano de Lançamento</span>
-            <input class="form-control buscar-ano mt-2" id="buscar-ano" type="text" placeholder="Buscar">
-        </div>
-        <div class="list-group list-group-flush lista-ano" id="lista-ano">
-            @foreach($years as $year)
-            <?php
-            echo gerarLinkFiltros('ano', $year['year'],  $year['year']);
-            ?>
-            @endforeach
-        </div>
-    </div>
-    @endif
 </div>
