@@ -70,11 +70,7 @@
     <div class="cover d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="masthead">
             <div class="inner">
-                <a href="/" style="text-decoration:none !important;">
-                    <h3 class="masthead-brand logo-inicio">
 
-                    </h3>
-                </a>
                 <nav class="nav nav-masthead justify-content-center">
                     <a class="nav-link active"  id="home-tab" data-bs-toggle="tab" href="#home" role="tab"
                        aria-controls="home" aria-selected="true">Home</a>
@@ -93,7 +89,7 @@
 
                     <img src="{{ URL::asset('image/logogif.gif') }}" width="56" height="56" alt="">
                     <span
-                        style="position:relative; font-size:28px; top:5px; text-decoration:none !important;">GAME
+                        style="position:relative; font-size:28px; top:5px; font-weight:bold; text-decoration:none !important;">GAME
                                 MATCH</span>
                 </div>
 

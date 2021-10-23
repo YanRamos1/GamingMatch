@@ -5,11 +5,16 @@
                     aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            @if($_COOKIE['theme'] == 'dark')
-                <a href="/games"><img src="{{ URL::asset('image/logo02.png') }}" class="mx-2" style="height:54px;" alt=""></a>
-            @elseif($_COOKIE['theme'] == 'light')
-                <a href="/games"><img src="{{ URL::asset('image/logo01.png') }}" class="mx-2" style="height:54px;" alt=""></a>
+            @if(isset($_COOKIE['theme']))
+                @if($_COOKIE['theme'] == 'dark')
+                    <a href="/games"><img src="{{ URL::asset('image/logo02.png') }}" class="mx-2" style="height:54px;"
+                                          alt=""></a>
+                @elseif($_COOKIE['theme'] == 'light')
+                    <a href="/games"><img src="{{ URL::asset('image/logo01.png') }}" class="mx-2" style="height:54px;"
+                                          alt=""></a>
                 @endif
+            @endif
+
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -33,7 +38,7 @@
                         <a class="nav-link" style="color: #F3821CFF;" href="/news">Notícias</a>
                     </li>
                     <li class="nav-item mx-auto mx-lg-3 mx-sm-auto mx-md-5 my-2">
-                        <a class="nav-link"  style="color: #F3821CFF;" href="#">Comunidades</a>
+                        <a class="nav-link" style="color: #F3821CFF;" href="#">Comunidades</a>
                     </li>
                 </ul>
                 <div class="dropdown d-flex justify-content-center ml-0">

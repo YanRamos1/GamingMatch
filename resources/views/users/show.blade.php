@@ -105,13 +105,13 @@
                                                 </button>
                                             @endif
                                             @if(!auth()->user()->hasBlocked($user))
-                                                    <button class="btn" style="color: #F3821C;" type="button"
+                                                <button class="btn" style="color: #F3821C;" type="button"
                                                         onclick="window.location='{{ url("/users/block/$user->id") }}'">
                                                     <i class="fas fa-user-lock"></i>
                                                     <span id="friendship-status-">Bloquear</span>
                                                 </button>
                                             @elseif(auth()->user()->hasBlocked($user))
-                                                    <button class="btn" style="color: #F3821C;" type="button"
+                                                <button class="btn" style="color: #F3821C;" type="button"
                                                         onclick="window.location='{{ url("/users/unblock/$user->id") }}'">
                                                     <i class="fas fa-unlock"></i>
                                                     <span id="friendship-status-">Unblock</span>
@@ -283,41 +283,41 @@
                             @if ( Auth::id() == $user->id)
                                 <div>
                                     @if($user->getFriendRequests() == null)
-
-
                                     @elseif($user->getFriendRequests() != null)
                                         <div class="row mt-2">
                                             <h5 class="mb-4">Pedidos de amizade pendentes</h5>
-                                        </div>
-                                        @foreach ($user->getFriendRequests() as $request)
-                                            <div class="row overflow-auto mb-3">
-                                                <div style="display: none">{{$sender_id = $request->sender->id}}</div>
-                                                <div class="card d-inline-flex" style="width:16rem;">
-                                                    <a href="/users/{{$sender_id}}"
-                                                       class="text-center center"><img
-                                                            src="{{$request->sender->avatar}}"
-                                                            alt="{{ URL::asset('image/default-user-image.png') }}"></a>
 
-                                                    <button class="btn text-black shadow m-1" type="button"
-                                                            style="background-color:#f3821c;"
-                                                            onclick="window.location='{{ url("users/accept/$sender_id") }}'">
-                                                        <span id="friendship-status-">Aceitar</span>
-                                                    </button>
-                                                    <button class="btn text-black shadow m-1" type="button"
-                                                            style="background-color:#f3821c;"
-                                                            onclick="window.location='{{ url("users/deny/$sender_id") }}'">
-                                                        <span id="friendship-status-">Recusar</span>
-                                                    </button>
+                                            @foreach ($user->getFriendRequests() as $request)
+                                                <div class="col overflow-auto mb-3">
+                                                    <div
+                                                        style="display: none">{{$sender_id = $request->sender->id}}</div>
+                                                    <div class="card d-inline-flex" style="width:16rem;">
+                                                        <a href="/users/{{$sender_id}}"
+                                                           class="text-center center"><img
+                                                                src="{{$request->sender->avatar}}"
+                                                                alt="{{ URL::asset('image/default-user-image.png') }}"></a>
+
+                                                        <button class="btn text-black shadow m-1" type="button"
+                                                                style="background-color:#f3821c;"
+                                                                onclick="window.location='{{ url("users/accept/$sender_id") }}'">
+                                                            <span id="friendship-status-">Aceitar</span>
+                                                        </button>
+                                                        <button class="btn text-black shadow m-1" type="button"
+                                                                style="background-color:#f3821c;"
+                                                                onclick="window.location='{{ url("users/deny/$sender_id") }}'">
+                                                            <span id="friendship-status-">Recusar</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
+                                        </div>
                                     @endif
                                 </div>
                                 @if($user->getAcceptedFriendships() != null)
                                     <h5 class="mb-4">Amigos</h5>
                                     <div class="row overflow-auto" style="height: 50vh">
                                         @foreach($user->getAcceptedFriendships() as $friends)
-                                            <div class="mb-3">
+                                            <div class="col">
                                                 @if($friends->sender->name != $user->name)
                                                     <div class="card d-inline-flex" style="width:16rem;">
                                                         <a href="/users/{{$friends->sender->id}}">
@@ -337,16 +337,17 @@
 
                                                 @if($friends->sender->name == $user->name)
                                                     <div class="card" style="width:16rem;">
-                                                        <h5 class="text-center">{{$friend_id = $friends->recipient->name}}</h5>
-
                                                         <div style="display:
-                                                            none">{{$friend_id = $friends->recipient->avatar}}>
+                                                            none">{{$friend_id = $friends->recipient->id}}>
                                                         </div>
                                                         <a href="/users/{{$friend_id}}"
-                                                           class="text-center center"><img
-                                                                src="{{$friends->recipient->avatar}}"
-                                                                alt="{{ url::asset('public/image/default-user-image.png') }}">
+                                                           class="text-center center">
+                                                            <h5 class="text-center">{{$friends->recipient->name}}</h5>
+                                                            <img style="width:16rem"
+                                                                 src="{{$friends->recipient->avatar}}"
+                                                                 alt="Perfil sem imagem">
                                                         </a>
+
                                                         <button class="btn text-black shadow m-1" type="button"
                                                                 style="background-color:#f3821c;"
                                                                 onclick="window.location='{{ url("users/delete/$friend_id") }}'">
