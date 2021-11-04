@@ -11,6 +11,8 @@ class Game extends Model
     use HasFactory;
     use CanBeLiked;
 
+
+
     public function scopeJogo($query, $jogo)
     {
         if (!is_null($jogo)) {

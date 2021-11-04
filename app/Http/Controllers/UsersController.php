@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\Post;
 use App\Models\Rating;
 use App\Models\User;
 use App\Models\Wishlist;
@@ -168,6 +169,31 @@ class UsersController extends Controller
         (Auth::user())->unlike($game);
         return redirect("/games/$game->id");
     }
+
+    public function VotePost($id){
+        $post = Post::find($id);
+        Auth::user()->vote($post);
+        return redirect("/groups/show/$post->group_id");
+    }
+    public function downvote($id){
+        $post = Post::find($id);
+        Auth::user()->downvote($post);
+        return redirect("/groups/show/$post->group_id");
+    }
+    public function upvote($id){
+        $post = Post::find($id);
+        Auth::user()->upvote($post);
+        return redirect("/groups/show/$post->group_id");
+    }
+
+    public function cancelvote($id){
+        $post = Post::find($id);
+        Auth::user()->cancelVote($post);
+        return redirect("/groups/show/$post->group_id");
+    }
+
+
+
 
 
 

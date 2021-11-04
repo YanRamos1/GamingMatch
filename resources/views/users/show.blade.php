@@ -63,15 +63,15 @@
                         <div class="row">
                             <div class="d-flex justify-content-center borda" style="display: inline-block;">
                                 @if($user->isBlocked())
-                                    <img src="{{ URL::asset('image/default-user-image.png') }}"
+                                    <img src="{{ URL::asset('image/default-user-image.png') }}"  style="width:20rem; height:20rem"
                                          class="card-img-top col-lg-12 rounded-pill">
                                 @else
                                     @if(is_null($user->avatar))
-                                        <img src="{{ URL::asset('image/default-user-image.png') }}"
+                                        <img src="{{ URL::asset('image/default-user-image.png') }}"  style="width:20rem; height:20rem"
                                              class="img-fluid rounded-pill">
                                     @else
                                         <img src="{{$user->avatar}}"
-                                             alt="{{ URL::asset('image/default-user-image.png') }}"
+                                             alt="{{ URL::asset('image/default-user-image.png') }}"  style="width:20rem; height:20rem"
                                              class="img-fluid rounded-pill">
                                     @endif
                                 @endif
@@ -119,6 +119,56 @@
                                                 </button>
                                             @endif
                                         @endif
+                                    </div>
+                                    <div class="col-lg-7 text-center">
+                                        <!--small modal with users->groups-->
+                                        @if($user->groups()->count() > 0)
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                <i class="fa fa-users"></i>
+                                                Grupos
+                                            </button>
+                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                                 aria-labelledby="myModalLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog mx-auto">
+                                                    <div class="modal-content card container-fluid" style="height:80vh; width:80vh;">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close"><span
+                                                                    aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="myModalLabel">Grupos</h4>
+                                                        </div>
+                                                        <div class="modal-body" style="overflow-y: auto">
+                                                            <ul class="">
+                                                                @foreach($user->groups as $group)
+                                                                    <div class="m-2 container card">
+                                                                        <a href='{{route('groups.show',$group->id)}}'>
+                                                                            <h3 class="card-header">{{$group->name}}</h3>
+                                                                            <img src="{{$group->image}}"
+                                                                                 class="img-responsive bordalaranja m-2"
+                                                                                 style="width:13rem; height:13rem"
+                                                                                 alt="">
+                                                                        </a>
+                                                                    </div>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">Fechar
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+
+                                            <div class="section-title">
+                                                <h5>Ainda sem comunidades</h5>
+                                            </div>
+
+                                        @endif
+
                                     </div>
 
 
@@ -190,8 +240,9 @@
                                                     <path
                                                         d="M11.857 3.143h-1.143V6.57h1.143V3.143zm-3.143 0H7.571V6.57h1.143V3.143z"/>
                                                 </svg>
-                                                </span>
+                                                <span>
                                                 {{$user->twitch}}
+                                                </span>
                                             </a>
                                         </div>
                                     @endif
@@ -213,7 +264,7 @@
                                             @endforeach
                                         </div>
                                     @endif
-                                    @if(count($wishlist) > 0)
+                                    @if(count($likedgames) > 0)
                                         <hr>
                                         <div class="row mt-2">
                                             <h5 class="mb-4 text-center center">Lista de jogos curtidos</h5>
@@ -283,11 +334,13 @@
 
                             @if ( Auth::id() == $user->id)
                                 <div>
-                                    @if($user->getFriendRequests() == null)
-                                    @elseif($user->getFriendRequests() != null)
+                                    @if($user->getFriendRequests()->count() < 1)
+                                        <div class="card">
+                                            <p>Não há pedidos de amizade pendentes</p>
+                                        </div>
+                                    @elseif($user->getFriendRequests()->count() >= 1)
                                         <div class="row mt-2">
                                             <h5 class="mb-4">Pedidos de amizade pendentes</h5>
-
                                             @foreach ($user->getFriendRequests() as $request)
                                                 <div class="col overflow-auto mb-3">
                                                     <div
@@ -314,9 +367,9 @@
                                         </div>
                                     @endif
                                 </div>
-                                @if($user->getAcceptedFriendships() != null)
+                                @if($user->getAcceptedFriendships()->count() >= 1)
                                     <h5 class="mb-4">Amigos</h5>
-                                    <div class="row overflow-auto" style="height: 50vh">
+                                    <div class="row overflow-auto card" style="height: 50vh">
                                         @foreach($user->getAcceptedFriendships() as $friends)
                                             <div class="col">
                                                 @if($friends->sender->name != $user->name)
@@ -442,5 +495,9 @@
             </div>
         </div>
     </div>
+
+
+
+
 
 @endsection

@@ -11,14 +11,17 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "6.5.x-dev",
         "hootlex/laravel-friendships": "^1.0",
+        "intervention/image": "^2.7",
         "jcobhams/newsapi": "^1.0",
         "ladumor/laravel-pwa": "^0.0.2",
         "laravel/framework": "^8.12",
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
+        "laravelista/comments": "^4.5",
         "livewire/livewire": "^2.6",
-        "marcreichel/igdb-laravel": "^2.1",
-        "multicaret/laravel-acquaintances": "^3.5"
+        "marcreichel/igdb-laravel": "^2.4",
+        "multicaret/laravel-acquaintances": "^3.5",
+        "ohkannaduh/groups": "^1.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

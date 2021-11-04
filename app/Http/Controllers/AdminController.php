@@ -124,39 +124,6 @@ class AdminController extends Controller
                 } catch (Exception $e) {
                 }
             }
-            foreach ($games2 as $g => $game_value) {
-                try {
-                    $game = Game::create([
-                        'name' => $game_value->attributes['name'],
-                        'released_at' => array_key_exists('first_release_date', $game_value->attributes)
-                            ? $game_value->attributes['first_release_date']->toDateTimeString()
-                            : null,
-                        'image' => Str::replaceFirst('thumb', 'cover_big', $game_value['cover']['url']),
-                        'description' => array_key_exists('summary', $game_value->attributes)
-                            ? $game_value->attributes['summary']
-                            : null,
-                        'igdb_id' => $game_value->attributes['id'],
-                    ]);
-
-                    if (array_key_exists('genres', $game_value->attributes)) {
-                        $game->generos()->attach($game_value->attributes['genres']);
-                    }
-
-                    if (array_key_exists('platforms', $game_value->attributes)) {
-                        $game->plataformas()->attach($game_value->attributes['platforms']);
-                    }
-
-                    if (array_key_exists('screenshots', $game_value->relations->toArray())) {
-                        foreach ($game_value->relations->toArray()['screenshots'] as $screenshot => $screnshot_value) {
-                            Screenshot::create([
-                                'game_id' => $game->id,
-                                'url' => Str::replaceFirst('thumb', 'cover_big', $game_value['screenshots']['url']),
-                            ]);
-                        }
-                    }
-                } catch (Exception $e) {
-                }
-            }
 
         } catch (Exception $e) {
             $msg = "Ocorreu um erro ao tentar sincronizar os jogos.";

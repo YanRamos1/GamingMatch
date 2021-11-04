@@ -248,9 +248,9 @@ ul.menu-new li.menu-item:first-child {
     color: #ffffff;
 }
 .btn-laranja:hover{
-    color: #f68f35;
-    background-color: #ffffff;
+    background-color: #d0782b;
     border:1px solid #f68f35;
+    color: black;
 }
 .row.similar-games{
     display: flex;

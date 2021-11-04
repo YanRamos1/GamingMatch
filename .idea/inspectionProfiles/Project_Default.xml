@@ -6,8 +6,9 @@
       <option name="myIgnoreVendorSpecificProperties" value="false" />
       <option name="myCustomPropertiesList">
         <value>
-          <list size="1">
+          <list size="2">
             <item index="0" class="java.lang.String" itemvalue="text-color" />
+            <item index="1" class="java.lang.String" itemvalue="font-color" />
           </list>
         </value>
       </option>
@@ -15,11 +16,12 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="4">
+          <list size="5">
             <item index="0" class="java.lang.String" itemvalue="flex" />
             <item index="1" class="java.lang.String" itemvalue="wire:click" />
             <item index="2" class="java.lang.String" itemvalue="@keydown.escape.window" />
             <item index="3" class="java.lang.String" itemvalue="@click" />
+            <item index="4" class="java.lang.String" itemvalue="hover" />
           </list>
         </value>
       </option>
@@ -28,7 +30,7 @@
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="9">
+          <list size="10">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
@@ -38,6 +40,7 @@
             <item index="6" class="java.lang.String" itemvalue="div" />
             <item index="7" class="java.lang.String" itemvalue="form" />
             <item index="8" class="java.lang.String" itemvalue="navbar" />
+            <item index="9" class="java.lang.String" itemvalue="hidden" />
           </list>
         </value>
       </option>

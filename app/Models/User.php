@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravelista\Comments\Commenter;
+use Multicaret\Acquaintances\Traits\CanVote;
 use Multicaret\Acquaintances\Traits\Friendable;
 use Multicaret\Acquaintances\Traits\CanFollow;
 use Multicaret\Acquaintances\Traits\CanBeFollowed;
@@ -13,15 +15,20 @@ use Multicaret\Acquaintances\Traits\CanLike;
 use Multicaret\Acquaintances\Traits\CanBeLiked;
 use Multicaret\Acquaintances\Traits\CanRate;
 use Multicaret\Acquaintances\Traits\CanBeRated;
+use OhKannaDuh\Groups\Contracts\GroupableContract;
+use OhKannaDuh\Groups\Traits\Groupable;
 
 
-class User extends Authenticatable
+class User extends Authenticatable implements GroupableContract
 {
-
+    use Groupable;
     use Friendable;
     use CanFollow, CanBeFollowed;
     use CanLike;
     use CanRate, CanBeRated;
+    use Notifiable, Commenter;
+    Use CanVote;
+
 
 
     public function avaliacoes()

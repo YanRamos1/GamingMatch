@@ -19,7 +19,7 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item  mx-lg-5 mx-sm-auto mx-md-5 my-2">
-                        <form class="d-flex">
+                        <form class="d-flex" action="/games" method="">
                             <input class="form-control me-2" type="text" id="jogo" name="jogo" placeholder="Buscar Jogo"
                                    aria-label="Buscar Jogo" aria-describedby="btn-buscar">
                             <button class=" btn btn-outline-light" type="submit" id="btn-buscar">
@@ -38,7 +38,10 @@
                         <a class="nav-link" style="color: #F3821CFF;" href="/news">Notícias</a>
                     </li>
                     <li class="nav-item mx-auto mx-lg-3 mx-sm-auto mx-md-5 my-2">
-                        <a class="nav-link" style="color: #F3821CFF;" href="#">Comunidades</a>
+                        <a class="nav-link" style="color: #F3821CFF;" href="/groups">Comunidades</a>
+                    </li>
+                    <li class="nav-item mx-auto mx-lg-3 mx-sm-auto mx-md-5 my-2">
+                        <a class="nav-link" style="color: #F3821CFF;" href="/games">Games</a>
                     </li>
                 </ul>
                 <div class="dropdown d-flex justify-content-center ml-0">

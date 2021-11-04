@@ -33,7 +33,8 @@ body a:hover,
     border:1px solid #f68f35;
 }
 .btn-laranja:hover{
-    background-color:#f68f35;
+    background-color: #d0782b;
+    color:white;
     border:1px solid #f68f35;
 }
 

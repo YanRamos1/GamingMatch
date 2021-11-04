@@ -521,6 +521,37 @@
                                     </button>
                                 @endif
                             </div>
+                            @if(Auth::user() != null)
+                                <h3 class="mx-auto">Comunidade</h3>
+                            <div class="row p-3">
+                                @if($group == null)
+                                    <button style="background:#f3821c; border-color:#f3821c; margin-top:5px;"
+                                            class="btn btn-warning m-1" type="button"
+                                            onclick="window.location='{{ url("/games/group/create/$game->igdb_id") }}'">
+                                        <i class="fas fa-heart"></i>
+                                        <span id="friendship-status-">Criar Grupo</span>
+                                    </button>
+                                @elseif(!$group->contains(Auth::user()))
+                                    <button class="btn btn-danger m-1" type="button"
+                                            onclick="window.location='{{ url("/games/group/enter/$game->igdb_id") }}'">
+                                        <i class="fas"></i>
+                                        Entrar no grupo
+                                    </button>
+                                    @elseif($group->contains(Auth::user()))
+                                        <button class="btn btn-danger m-1" type="button"
+                                                onclick="window.location='{{ url("/games/group/leave/$game->igdb_id") }}'">
+                                            <i class="fas"></i>
+                                            Sair do grupo
+                                        </button>
+                                    <button class="btn btn-danger m-1" type="button"
+                                            onclick="window.location='{{ url("/groups/show/$game->igdb_id") }}'">
+                                        <i class="fas"></i>
+                                        Ver grupo
+                                    </button>
+
+                                    @endif
+                            </div>
+                                @endif
                         </div>
                         <div class="center flex flex-wrap d-flex justify-content-center m-4">
                             @if(isset($gameigdb->websites))

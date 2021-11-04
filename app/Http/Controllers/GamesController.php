@@ -16,6 +16,7 @@ use App\Models\Screenshot;
 use App\Models\Year;
 use Exception;
 use MarcReichel\IGDBLaravel\Models\InvolvedCompany;
+use OhKannaDuh\Groups\Model\Group;
 
 class GamesController extends Controller
 {
@@ -111,13 +112,14 @@ class GamesController extends Controller
             ->where([
                 ['game',$game->igdb_id],
                 ['publisher', true],
-
             ])
             ->get();
 
         $wishlist = Wishlist::where('user_id', '=', Auth::id())->where('game_id', '=', $game->id)->first();
         $likedgames = Likedgames::where('user_id', '=', Auth::id())->where('game_id', '=', $game->id)->first();
         $games = Game::select(['igdb_id'])->get();
+
+        $group = Group::find($gameigdb->id);
 
 
 
@@ -129,9 +131,13 @@ class GamesController extends Controller
             'involved_companies' =>$companies,
             'wishlist' =>$wishlist,
             'games' => $games,
-            'likedgames'=>$likedgames
+            'likedgames'=>$likedgames,
+            'group'=>$group,
         ]);
     }
+
+
+
 
     public function store()
     {

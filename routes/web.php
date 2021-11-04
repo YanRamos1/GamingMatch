@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\LikedGamesController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\GamesController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UsersController;
@@ -36,7 +38,7 @@ Route::get('/login/{provider}/callback', [SessionController::class, 'handleProvi
 
 
 Route::get('/games', [GamesController::class, 'index']);
-Route::get('/games/search', [GamesController::class, 'search']);
+Route::get('/games/search', [GamesController::class, 'search'])->name('games.search');
 Route::post('/games', [GamesController::class, 'store']);
 Route::get('/games/{game}', [GamesController::class, 'show'])->name('games.show');
 Route::get('/games/like/{id}', [UsersController::class, 'likegame'])->name('games.like');
@@ -58,7 +60,7 @@ Route::put('/settings/user/senha', [SettingsController::class, 'atualizarSenha']
 Route::put('/settings/user/social', [SettingsController::class, 'atualizarRedesSociais']);
 
 Route::get('/users', [UsersController::class, 'index']);
-Route::get('/users/{user}', [UsersController::class, 'show']);
+Route::get('/users/{user}', [UsersController::class, 'show'])->name('users.show');
 Route::get("/users/add/{id}", [UsersController::class, 'addFriend'])->name('add.friend');
 Route::get("/users/accept/{id}", [UsersController::class, 'acceptFriend'])->name('accept.friend');
 Route::get("/users/delete/{id}", [UsersController::class, 'deleteFriend'])->name('delete.friend');
@@ -92,8 +94,24 @@ Route::get('/users/follow/{id}', [UsersController::class, 'follow'])->name('user
 Route::get('/users/unfollow/{id}', [UsersController::class, 'unfollow'])->name('users.unfollow');
 
 
+Route::get('/games/group/create/{id}', [GroupController::class, 'create'])->name('groups.create');
+Route::get('/games/group/enter/{id}', [GroupController::class, 'addToGroup'])->name('groups.addUser');
+Route::get('/games/group/leave/{id}', [GroupController::class, 'removeFromGroup'])->name('groups.removeUser');
+Route::get('/groups/show/{id}', [GroupController::class, 'show'])->name('groups.show');
+Route::get('/groups', [GroupController::class, 'index']);
 
 
+Route::get('/groups/posts/create/', [PostController::class, 'store'])->name('posts.store');
+Route::get('/groups/posts/{id}', [PostController::class, 'createPost'])->name('posts.create');
+Route::get('/groups/posts/show/{id}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/groups/posts/delete/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+Route::get('/groups/posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
+Route::get('/groups/posts/update/{id}', [PostController::class, 'update'])->name('posts.update');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
+Route::get('/groups/posts/{id}/vote', [UsersController::class, 'togglevote'])->name('posts.togglevote');
+Route::get('/groups/posts/{id}/downvote', [UsersController::class, 'downvote'])->name('posts.downvote');
+Route::get('/groups/posts/{id}/uppost', [UsersController::class, 'upvote'])->name('posts.upvote');
+Route::get('/groups/posts/{id}/cancel', [UsersController::class, 'cancelVote'])->name('posts.cancelvote');
 
 
